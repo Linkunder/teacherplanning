@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Anotacion #<?php echo $model->idAnotacion; ?></h1>
+<h1>Ver Anotacion #<?php echo $model->idAnotacion; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -24,6 +24,6 @@ $this->menu=array(
 		'idAnotacion',
 		'nombre',
 		'descripcion',
-		'idAlumno',
+		'Alumno.nombre',
 	),
 )); ?>

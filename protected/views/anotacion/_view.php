@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('idAlumno')); ?>:</b>
-	<?php echo CHtml::encode($data->idAlumno); ?>
+	<?php echo CHtml::encode($data->Alumno->nombre); ?>
 	<br />
 
 

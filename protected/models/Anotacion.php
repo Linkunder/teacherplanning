@@ -48,7 +48,9 @@ class Anotacion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idAlumno0' => array(self::BELONGS_TO, 'Alumno', 'idAlumno'),
+			'Alumno' => array(self::BELONGS_TO, 'Alumno', 'idAlumno'),
+			'Anotaciones' => array(self::HAS_MANY, 'Anotacion', 'idAlumno'),
+
 		);
 	}
 
