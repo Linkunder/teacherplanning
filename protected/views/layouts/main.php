@@ -74,7 +74,7 @@ $cs
 				array('label'=>'Anotación', 'url'=>array('/anotacion')),
 				array('label'=>'Profesor', 'url'=>array('/profesor')),
 				array('label'=>'Clase', 'url'=>array('/clase')),
-				array('label'=>'Asistencia', 'url'=>array('/asistencia')),
+				array('label'=>'Evaluacion', 'url'=>array('/evaluacion')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
