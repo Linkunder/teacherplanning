@@ -51,18 +51,21 @@ $cs
 
 <body>
 
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
+	<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<div class="navbar-header">
+        <button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
+					<span class="sr-only">Toogle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="brand" href="<?php echo Yii::app()->homeUrl; ?>">
+				<a class="navbar-brand" href="<?php echo Yii::app()->homeUrl; ?>">
 					<?php echo Yii::app()->name;?>
 				</a>
-				<div class="nav-collapse collapse">
+				</div>
+				<div id="navbar3" class="navbar-collapse collapse">
+
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Inicio', 'url'=>array('/site/index')),
@@ -78,15 +81,14 @@ $cs
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
-			'htmlOptions' => array('class' => 'nav navbar-nav'),
+			'htmlOptions' => array('class' => 'nav navbar-nav navbar-right'),
 		)); ?>
 			</div>
-			</div>
 		</div>
-	</div><!-- mainmenu -->
+	</nav><!-- mainmenu -->
 	<div class="container">
 	<div class="page-header">
-	<br/> <br/>
+
 
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
