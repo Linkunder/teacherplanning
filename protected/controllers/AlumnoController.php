@@ -102,8 +102,12 @@ class AlumnoController extends Controller
 				$this->redirect(array('view','id'=>$model->idAlumno));
 		}
 
+        // *** se debe listar solo los cursos que posee ese profesor el cual esta creando el curso y logeado
+        $todosLosCursos = Curso::model()->findAll();
+
 		$this->render('update',array(
 			'model'=>$model,
+            'todosLosCursos' => $todosLosCursos,
 		));
 	}
 

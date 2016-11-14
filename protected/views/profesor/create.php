@@ -3,16 +3,16 @@
 /* @var $model Profesor */
 
 $this->breadcrumbs=array(
-	'Profesors'=>array('index'),
-	'Create',
+	'Profesor'=>array('index'),
+	'Agregar',
 );
 
 $this->menu=array(
-	array('label'=>'List Profesor', 'url'=>array('index')),
-	array('label'=>'Manage Profesor', 'url'=>array('admin')),
+	array('label'=>'Lista de Profesores', 'url'=>array('index')),
+	array('label'=>'Control de Profesores', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Profesor</h1>
+<h1>Agregar Profesor</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

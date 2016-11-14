@@ -4,24 +4,24 @@
 
 $this->breadcrumbs=array(
 	'Alumnos'=>array('index'),
-	$model->idAlumno,
+	$model->nombre,
 );
 
 $this->menu=array(
-	array('label'=>'List Alumno', 'url'=>array('index')),
-	array('label'=>'Create Alumno', 'url'=>array('create')),
-	array('label'=>'Update Alumno', 'url'=>array('update', 'id'=>$model->idAlumno)),
-	array('label'=>'Delete Alumno', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idAlumno),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Alumno', 'url'=>array('admin')),
+	array('label'=>'Lista de Alumnos', 'url'=>array('index')),
+	array('label'=>'Agregar Alumno', 'url'=>array('create')),
+	array('label'=>'Editar Alumno', 'url'=>array('update', 'id'=>$model->idAlumno)),
+	array('label'=>'Eliminar Alumno', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idAlumno),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Control de Alumnos', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Alumno #<?php echo $model->idAlumno; ?></h1>
+<h1>Alumno : <?php echo $model->nombre." ".$model->apellido; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'idAlumno',
+		//'idAlumno',
 		'rut',
 		'nombre',
 		'apellido',

@@ -74,8 +74,11 @@ class CursoController extends Controller
 				$this->redirect(array('view','id'=>$model->idCurso));
 		}
 
+        $todosLosProfesores = Profesor::model()->findAll();
+
 		$this->render('create',array(
 			'model'=>$model,
+            'todosLosProfesores' => $todosLosProfesores,
 		));
 	}
 
@@ -98,8 +101,11 @@ class CursoController extends Controller
 				$this->redirect(array('view','id'=>$model->idCurso));
 		}
 
+        $todosLosProfesores = Profesor::model()->findAll();
+
 		$this->render('update',array(
 			'model'=>$model,
+            'todosLosProfesores' => $todosLosProfesores,
 		));
 	}
 

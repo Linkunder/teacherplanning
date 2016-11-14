@@ -26,11 +26,22 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('sexo')); ?>:</b>
-	<?php echo CHtml::encode($data->sexo); ?>
+	<?php
+		if($data->sexo == 1){
+			echo "Hombre";
+		}else{
+			echo "Mujer";
+		}
+		//echo CHtml::encode($data->sexo);
+	?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('idCurso')); ?>:</b>
-	<?php echo CHtml::encode($data->idCurso); ?>
+	<?php
+		$nombreCurso = Curso::model()->findByPk($data->idCurso);
+		echo CHtml::encode($nombreCurso->nombre);
+		//echo CHtml::encode($data->idCurso);
+	?>
 	<br />
 
 

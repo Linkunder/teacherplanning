@@ -33,7 +33,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'idProfesor'); ?>
-		<?php echo $form->textField($model,'idProfesor'); ?>
+		<!-- ?php echo $form->textField($model,'idProfesor'); ?> -->
+		<?php $lista = CHtml::listData($todosLosProfesores, 'idProfesor','nombre') ?>
+		<?php echo $form->dropDownList(
+			$model,
+			'idProfesor',
+			$lista,
+			array('prompt'=>'Seleccione Profesor')
+		); ?>
 		<?php echo $form->error($model,'idProfesor'); ?>
 	</div>
 

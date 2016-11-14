@@ -4,18 +4,23 @@
 
 $this->breadcrumbs=array(
 	'Alumnos'=>array('index'),
-	$model->idAlumno=>array('view','id'=>$model->idAlumno),
-	'Update',
+	$model->nombre=>array('view','id'=>$model->idAlumno),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List Alumno', 'url'=>array('index')),
-	array('label'=>'Create Alumno', 'url'=>array('create')),
-	array('label'=>'View Alumno', 'url'=>array('view', 'id'=>$model->idAlumno)),
-	array('label'=>'Manage Alumno', 'url'=>array('admin')),
+	array('label'=>'Lista de Alumnos', 'url'=>array('index')),
+	array('label'=>'Agregar Alumno', 'url'=>array('create')),
+	array('label'=>'Ver a este Alumno', 'url'=>array('view', 'id'=>$model->idAlumno)),
+	array('label'=>'Control de Alumnos', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Alumno <?php echo $model->idAlumno; ?></h1>
+<h1>Editar Alumno : <?php echo $model->nombre." ".$model->apellido; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php
+$this->renderPartial('_form', array(
+	'model'=>$model,
+	'todosLosCursos' => $todosLosCursos,
+));
+?>

@@ -3,20 +3,20 @@
 /* @var $model Profesor */
 
 $this->breadcrumbs=array(
-	'Profesors'=>array('index'),
-	$model->idProfesor,
+	'Profesor'=>array('index'),
+	$model->nombre,
 );
 
 $this->menu=array(
-	array('label'=>'List Profesor', 'url'=>array('index')),
-	array('label'=>'Create Profesor', 'url'=>array('create')),
-	array('label'=>'Update Profesor', 'url'=>array('update', 'id'=>$model->idProfesor)),
-	array('label'=>'Delete Profesor', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idProfesor),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Profesor', 'url'=>array('admin')),
+	array('label'=>'Lista de Profesores', 'url'=>array('index')),
+	array('label'=>'Agregar Profesor', 'url'=>array('create')),
+	array('label'=>'Editar Profesor', 'url'=>array('update', 'id'=>$model->idProfesor)),
+	array('label'=>'Eliminar Profesor', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->idProfesor),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Control de Profesores', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View Profesor #<?php echo $model->idProfesor; ?></h1>
+<h1>Profesor : <?php echo $model->nombre; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

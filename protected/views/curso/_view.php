@@ -18,7 +18,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('idProfesor')); ?>:</b>
-	<?php echo CHtml::encode($data->idProfesor); ?>
+	<?php
+	$nombreProfesor = Profesor::model()->findByPk($data->idProfesor);
+	echo CHtml::encode($nombreProfesor->nombre." ".$nombreProfesor->apellido);
+	//echo CHtml::encode($data->idProfesor);
+	?>
 	<br />
 
 

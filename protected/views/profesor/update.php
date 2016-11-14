@@ -3,19 +3,19 @@
 /* @var $model Profesor */
 
 $this->breadcrumbs=array(
-	'Profesors'=>array('index'),
-	$model->idProfesor=>array('view','id'=>$model->idProfesor),
-	'Update',
+	'Profesor'=>array('index'),
+	$model->nombre=>array('view','id'=>$model->idProfesor),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List Profesor', 'url'=>array('index')),
-	array('label'=>'Create Profesor', 'url'=>array('create')),
-	array('label'=>'View Profesor', 'url'=>array('view', 'id'=>$model->idProfesor)),
-	array('label'=>'Manage Profesor', 'url'=>array('admin')),
+	array('label'=>'Lista de Profesores', 'url'=>array('index')),
+	array('label'=>'Agregar Profesor', 'url'=>array('create')),
+	array('label'=>'Ver a este Profesor', 'url'=>array('view', 'id'=>$model->idProfesor)),
+	array('label'=>'Control de Profesores', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Profesor <?php echo $model->idProfesor; ?></h1>
+<h1>Editar Profesor : <?php echo $model->nombre; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -4,11 +4,11 @@
 
 $this->breadcrumbs=array(
 	'Alumnos'=>array('index'),
-	'Create',
+	'Nuevo',
 );
 
 $this->menu=array(
-	array('label'=>'Lista Alumnos', 'url'=>array('index')),
+	array('label'=>'Lista de Alumnos', 'url'=>array('index')),
 	array('label'=>'Control de Alumnos', 'url'=>array('admin')),
 );
 ?>
