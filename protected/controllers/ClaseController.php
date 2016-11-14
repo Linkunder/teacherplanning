@@ -81,6 +81,10 @@ class ClaseController extends Controller
 			'model'=>$model,
 			'todosLosCursos'=>$todosLosCursos
 		));
+
+
+
+
 	}
 
 	/**
@@ -102,8 +106,11 @@ class ClaseController extends Controller
 				$this->redirect(array('view','id'=>$model->idClase));
 		}
 
+		$todosLosCursos = Curso::model()->findAll();
+
 		$this->render('update',array(
 			'model'=>$model,
+			'todosLosCursos'=>$todosLosCursos
 		));
 	}
 
