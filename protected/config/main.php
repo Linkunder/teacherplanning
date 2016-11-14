@@ -63,7 +63,27 @@ return array(
         'chartjs'=>array(
             'class' => 'chartjs.components.ChartJs'
         ),
-
+        'widgetFactory' => array(
+            'widgets' => array(
+                'CLinkPager' => array(
+                    'htmlOptions' => array(
+                        'class' => 'pagination'
+                    ),
+                    'header' => false,
+                    'maxButtonCount' => 5,
+                    'cssFile' => false,
+                ),
+                'CGridView' => array(
+                    'htmlOptions' => array(
+                        'class' => 'table-bootstrap'
+                    ),
+                    'itemsCssClass' => 'table table-striped table-hover',
+                    'cssFile' => false,
+                    'summaryCssClass' => 'dataTables_info',
+     
+                ),
+            ),
+        ),
 
 		// uncomment the following to enable URLs in path-format
 		/*

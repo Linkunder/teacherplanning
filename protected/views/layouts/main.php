@@ -55,7 +55,6 @@ $cs
 			<div class="container">
 				<div class="navbar-header">
         <button type="button" class="btn navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
-					<span class="sr-only">Toogle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -88,8 +87,6 @@ $cs
 	</nav><!-- mainmenu -->
 	<div class="container">
 	<div class="page-header">
-
-
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
