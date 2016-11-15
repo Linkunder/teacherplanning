@@ -4,18 +4,26 @@
 
 $this->breadcrumbs=array(
 	'Clases'=>array('index'),
-	$model->idClase=>array('view','id'=>$model->idClase),
-	'Update',
+	$model->fecha=>array('view','id'=>$model->idClase),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List Clase', 'url'=>array('index')),
-	array('label'=>'Create Clase', 'url'=>array('create')),
-	array('label'=>'View Clase', 'url'=>array('view', 'id'=>$model->idClase)),
-	array('label'=>'Manage Clase', 'url'=>array('admin')),
+	array('label'=>'Lista de Clases Realizadas', 'url'=>array('index')),
+	array('label'=>'Agregar Clase', 'url'=>array('create')),
+	array('label'=>'Ver esta Clase', 'url'=>array('view', 'id'=>$model->idClase)),
+	array('label'=>'Control de Clases', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Clase <?php echo $model->idClase; ?></h1>
+<h1>Editar Clase del día : <?php echo $model->fecha; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'todosLosCursos'=>$todosLosCursos)); ?>
+<?php
+$this->renderPartial('_form', array(
+	'model'=>$model,
+	'todosLosCursos'=>$todosLosCursos,
+	'modelAlumno' => $modelAlumno,
+	'listaAlumnos' => $listaAlumnos,
+	'paidAlumnos' => $paidAlumnos,
+));
+?>

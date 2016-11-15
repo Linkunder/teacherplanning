@@ -2,7 +2,14 @@
 /* @var $this ClaseController */
 /* @var $model Clase */
 /* @var $form CActiveForm */
+
+
+//$themePath = Yii::app()->theme->baseUrl;
+//echo '<script src="'.$themePath.'/assets/js/dual-list-box.js" language="javascript" type="text/javascript"></script>';
+
+
 ?>
+
 
 <div class="form">
 
@@ -68,6 +75,33 @@
 		?>
 		<?php echo $form->error($model,'idCurso'); ?>
 	</div>
+
+
+	<!--
+	<script type="text/javascript">
+		$('lista').DualListBox();
+	</script>
+	<select id="lista">
+	-->
+	<!--
+	?php
+	$this->widget('ext.DualListBox.DualListBox', array(
+		'model'=>$modelAlumno,
+		'attribute'=>'nombre',
+		'nametitle' => 'Alumno',
+		'data' => $listaAlumnos,  // it will be displyed in available side
+		'selecteddata'=> $paidAlumnos, // it will be displayed in selected side
+		'data_id'=> 'idAlumno',
+		'data_value'=> 'nombre',
+		'lngOptions' => array(
+			'search_placeholder' => 'Buscar Alumno',
+			'showing' => ' - Total',
+			'available' => 'Disponibles',
+			'selected' => 'Seleccionados'
+		)
+	));
+	?>
+	-->
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

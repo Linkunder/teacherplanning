@@ -64,8 +64,24 @@ class ClaseController extends Controller
 	{
 		$model=new Clase;
 
+        //$themePath = Yii::app()->theme->baseUrl; //$baseUrl = Yii::app()->baseUrl;
+        //$cs = Yii::app()->getClientScript();
+        //$cs->registerScriptFile($themePath.'/assets/js/dual-list-box.js');
+
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+
+        /**** DUAL-LIST-BOX */
+        $modelAlumno = new Alumno();
+
+        $idCurso = Clase::model()->idCurso;
+        $listaAlumnos = Alumno::model()->findAllByAttributes(['idCurso' => $idCurso]);
+
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('idAlumno=:id');
+        $criteria->params = array(':id' => 1);
+        $paidAlumnos = Alumno::model()->findAll($criteria);
+        /**** FIN DUAL-LIST-BOX */
 
 		if(isset($_POST['Clase']))
 		{
@@ -76,14 +92,13 @@ class ClaseController extends Controller
 
 		$todosLosCursos = Curso::model()->findAll();
 
-
 		$this->render('create',array(
 			'model'=>$model,
-			'todosLosCursos'=>$todosLosCursos
+			'todosLosCursos'=>$todosLosCursos,
+            'modelAlumno' => $modelAlumno,
+            'listaAlumnos' => $listaAlumnos,
+            'paidAlumnos' => $paidAlumnos,
 		));
-
-
-
 
 	}
 

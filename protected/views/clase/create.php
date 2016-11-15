@@ -4,15 +4,23 @@
 
 $this->breadcrumbs=array(
 	'Clases'=>array('index'),
-	'Create',
+	'Crear',
 );
 
 $this->menu=array(
-	array('label'=>'List Clase', 'url'=>array('index')),
-	array('label'=>'Manage Clase', 'url'=>array('admin')),
+	array('label'=>'Lista de Clases Realizadas', 'url'=>array('index')),
+	array('label'=>'Control de Clases', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Agregar nueva clase</h1>
+<h1>Agregar Nueva Clase</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'todosLosCursos'=>$todosLosCursos)); ?>
+<?php
+$this->renderPartial('_form', array(
+	'model'=>$model,
+	'todosLosCursos'=>$todosLosCursos,
+	'modelAlumno' => $modelAlumno,
+	'listaAlumnos' => $listaAlumnos,
+	'paidAlumnos' => $paidAlumnos,
+));
+?>

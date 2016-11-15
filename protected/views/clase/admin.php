@@ -4,12 +4,12 @@
 
 $this->breadcrumbs=array(
 	'Clases'=>array('index'),
-	'Manage',
+	'Control',
 );
 
 $this->menu=array(
-	array('label'=>'List Clase', 'url'=>array('index')),
-	array('label'=>'Create Clase', 'url'=>array('create')),
+	array('label'=>'Lista de Clases', 'url'=>array('index')),
+	array('label'=>'Agregar Clase', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Clases</h1>
+<h1>Control de Clases</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
