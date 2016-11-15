@@ -3,7 +3,7 @@
 /* @var $model Evaluacion */
 
 $this->breadcrumbs=array(
-	'Evaluacions'=>array('index'),
+	'Evaluaciones'=>array('index'),
 	'Create',
 );
 
@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Evaluacion</h1>
+<h1>Agregar Evaluación</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model,'todosLosCursos'=>$todosLosCursos)); ?>
