@@ -39,10 +39,71 @@ class EvaluacionController extends Controller
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
+			array('allow', 
+				'actions'=>array('notas','notas'),
+				'users'=>array('*'),
+			),
+			array('allow', 
+				'actions'=>array('_notas','partialEvaluaciones'),
+				'users'=>array('*'),
+			),
+			array('allow', 
+				'actions'=>array('calificar','calificar'),
+				'users'=>array('*'),
+			),
+			array('allow', 
+				'actions'=>array('calificar','SetCalificaciones'),
+				'users'=>array('*'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionNotas(){
+		$model=new Curso;
+		$todosLosCursos = Curso::model()->findAll();
+		//$todasLasEvaluaciones = Evaluacion::model()->findAll();
+
+		$this->render('notas',array(
+			'model'=>$model,
+            'todosLosCursos' => $todosLosCursos,
+		));
+	}
+
+	public function actionPartialEvaluaciones(){
+		$idCurso = $_GET['idCurso'];
+		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		$this->renderPartial('_notas', array('evaluacionesCurso'=>$evaluacionesCurso,));
+	}
+
+
+
+	public function actionCalificar(){
+		//$model = new Alumnorindeevaluacion;
+		
+		$idEvaluacion = $_POST['evaluacion'];
+		$notasAlumno = Alumnorindeevaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		$idCurso = $_POST['curso'];
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		$this->render('calificar', array('alumnosCurso'=>$alumnosCurso,'evaluacion'=>$idEvaluacion, 'notasAlumno'=>$notasAlumno,));
+	}
+
+	public function actionSetCalificaciones(){
+		//$idEvaluacion = $_POST['evaluacion'];
+		$nroAlumnos = $_POST['nroAlumnos'];
+
+		for ($i=1; $i < $nroAlumnos ;) { 
+			$model = new Alumnorindeevaluacion;
+			//$notaAlumno = $_POST['notaAlumno'.$i];
+			$model->idAlumno = $_POST['idAlumno'.$i];
+			$model->idEvaluacion = $_POST['idEvaluacion'];
+			$model->nota = $_POST['notaAlumno'.$i];
+			$model->save();
+			$i++;
+		}
+		header('Location:?r=evaluacion/notas');
 	}
 
 	/**
