@@ -48,16 +48,10 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'idCurso',
 		'nombre',
 		'institucion',
-		'idProfesor',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{view} {update} {delete} {lista}',
-			'buttons'=>array(
-				'lista' => array(
-					'label'=>'Lista de Asistencia', // text label of the button
-					'url'=>'Yii::app()->createUrl("lista_asistencia", array("id"=>'.$model->idCurso.'))',
-				),
-			),
+			
 
 		),
 	),

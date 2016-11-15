@@ -33,8 +33,6 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'dia'); ?>
-		<?php echo $form->textField($model,'dia'); ?>
-		<?php echo $form->error($model,'dia'); ?>
 	</div>
 
 	<div class="row">

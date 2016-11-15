@@ -1,8 +1,8 @@
       <!--Estudiantes del curso -->
-     <table id="myTableAnotacion" class="table table-bootstrap striped">
+     <table id="myTableAnotacion" class="table table-bordered table-striped table-hover table-responsive">
 	 <thead>
 		<th>Nombre</th>
-		<th>Descripcion</th>
+		<th>Descripción</th>
 		<th></th>
 
 	</thead>

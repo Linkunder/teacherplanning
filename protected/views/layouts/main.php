@@ -10,6 +10,11 @@ $themePath = Yii::app()->theme->baseUrl;
 <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="assets/js/dataTables.responsive.min.js"></script>
+
+calendario
+    ->registerCssFile($themePath.'/assets/css/fullcalendar.css')
+    ->registerCssFile($themePath.'/assets/css/fullcalendar.min.css')
+    ->registerCssFile($themePath.'/assets/css/fullcalendar.print.css')
  */
 $cs
     ->registerCssFile($themePath.'/assets/css/bootstrap.css')
@@ -18,6 +23,11 @@ $cs
     ->registerCssFile($themePath.'/assets/css/dataTables.bootstrap.min.css');
 /**
  * JavaScripts
+	calendario
+ 	->registerScriptFile($themePath.'/assets/js/fullcalendar.js',CClientScript::POS_END)
+	->registerScriptFile($themePath.'/assets/js/fullcalendar.min.js',CClientScript::POS_END)
+	->registerScriptFile($themePath.'/assets/js/moment.min.js',CClientScript::POS_END)
+	->registerScriptFile($themePath.'/assets/js/es.js',CClientScript::POS_END)
  */
 $cs
     ->registerCoreScript('jquery',CClientScript::POS_END)
@@ -27,6 +37,11 @@ $cs
 	->registerScriptFile($themePath.'/assets/js/dataTables.responsive.min.js',CClientScript::POS_END)
 	->registerScriptFile($themePath.'/assets/js/dataTables.responsive.min.js',CClientScript::POS_END)
 	->registerScriptFile($themePath.'/assets/js/dual-list-box.js',CClientScript::POS_END)
+
+
+
+
+
     ->registerScript('tooltip',
         "$('[data-toggle=\"tooltip\"]').tooltip();
         $('[data-toggle=\"popover\"]').tooltip()"
@@ -95,9 +110,8 @@ $cs
 		)); */?>
 		<ul class="nav navbar-nav">
               <li class="active"><a href="<?php echo Yii::app()->homeUrl; ?>">Inicio</a></li>
-              <li><?php echo CHtml::link('Contacto',array('site/contact'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Cursos',array('/'),array('class'=>'btn_registro')); ?></li>
-              <li><?php echo CHtml::link('Evaluaciones',array('/alumno'),array('class'=>'btn_registro')); ?></li>
+              <li><?php echo CHtml::link('Evaluaciones',array('evaluacion/notas'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Anotaciones',array('/anotacion/prueba'),array('class'=>'btn_registro')); ?></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDS<span class="caret"></span></a>
@@ -111,8 +125,8 @@ $cs
                   <li><?php echo CHtml::link('Evaluación',array('/evaluacion'),array('class'=>'btn_registro')); ?></li>
                   <li role="separator" class="divider"></li>
                   <li class="dropdown-header">Especiales</li>
-                  <li><?php echo CHtml::link('Asistencia',array('/asistencia'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Notas',array('/notas'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php //echo CHtml::link('Asistencia',array('/asistencia'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php //echo CHtml::link('Notas',array('/notas'),array('class'=>'btn_registro')); ?></li>
                 </ul>
               </li>
             </ul>

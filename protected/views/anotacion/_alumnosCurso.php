@@ -1,6 +1,6 @@
       <!--Estudiantes del curso -->
 
-     <table id="myTable<?php echo $idCurso?>" class="table table-bootstrap striped">
+     <table id="myTable<?php echo $idCurso?>" class="table table-bordered table-striped table-hover table-responsive">
 	 <thead>
 		<th>Nombre</th>
 		<th>Apellido</th>
@@ -37,7 +37,7 @@
       <?php } ?>
       <!--Estudiantes del curso -->
 <script type="text/javascript">
-	
+	/*
 		var cont = 0; 
          $(document).ready(function() {
          	
@@ -48,7 +48,7 @@
             });
         	}
         } );
-
+*/
 
 </script>
 

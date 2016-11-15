@@ -3,13 +3,13 @@
 /* @var $model Evaluacion */
 
 $this->breadcrumbs=array(
-	'Evaluacions'=>array('index'),
-	'Manage',
+	'Evaluaciones'=>array('index'),
+	'Gestión',
 );
 
 $this->menu=array(
-	array('label'=>'List Evaluacion', 'url'=>array('index')),
-	array('label'=>'Create Evaluacion', 'url'=>array('create')),
+	array('label'=>'Listar Evaluaciones', 'url'=>array('index')),
+	array('label'=>'Crear Evaluacion', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Evaluacions</h1>
+<h1>Gestión Evaluaciones</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

@@ -61,6 +61,7 @@ class EvaluacionController extends Controller
 		);
 	}
 
+
 	public function actionNotas(){
 		$model=new Curso;
 		$todosLosCursos = Curso::model()->findAll();
