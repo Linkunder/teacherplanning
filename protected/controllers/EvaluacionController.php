@@ -87,23 +87,39 @@ class EvaluacionController extends Controller
 		$idEvaluacion = $_POST['evaluacion'];
 		$notasAlumno = Alumnorindeevaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
 		$idCurso = $_POST['curso'];
+		$_SESSION['curso'] = $idCurso;
 		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
 		$this->render('calificar', array('alumnosCurso'=>$alumnosCurso,'evaluacion'=>$idEvaluacion, 'notasAlumno'=>$notasAlumno,));
 	}
 
 	public function actionSetCalificaciones(){
 		//$idEvaluacion = $_POST['evaluacion'];
-		$nroAlumnos = $_POST['nroAlumnos'];
 
-		for ($i=1; $i < $nroAlumnos ;) { 
+		$idEvaluacion = $_POST['idEvaluacion'];
+		$notasAlumno = Alumnorindeevaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		$idCurso = $_SESSION['curso'];
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+
+		
+		foreach ($alumnosCurso as $key) {
 			$model = new Alumnorindeevaluacion;
-			//$notaAlumno = $_POST['notaAlumno'.$i];
+			echo "evalucion: ".$idEvaluacion." alumno: ".$key['idAlumno']."<br>";
+			$notaAlumno = $_POST['notaAlumno'.$key['idAlumno']];
+			$model->idAlumno = $_POST['idAlumno'.$key['idAlumno']];
+			$model->idEvaluacion = $_POST['idEvaluacion'];
+			$model->nota = $notaAlumno;
+			$model->save();
+		}
+		/*
+		for ($i=1; $i < $nroAlumnos;) { 
+			$model = new Alumnorindeevaluacion;
+			$notaAlumno = $_POST['notaAlumno'.$i];
 			$model->idAlumno = $_POST['idAlumno'.$i];
 			$model->idEvaluacion = $_POST['idEvaluacion'];
 			$model->nota = $_POST['notaAlumno'.$i];
 			$model->save();
 			$i++;
-		}
+		}*/
 		header('Location:?r=evaluacion/notas');
 	}
 

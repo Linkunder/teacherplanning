@@ -10,6 +10,9 @@
 	<table class="table table-bordered table-striped table-hover table-responsive">
 	<thead>
 		<tr>
+			<th width='5%'>
+				
+			</th>
 			<th width='15%'>
 				Alumno
 			</th>
@@ -34,6 +37,9 @@
 		?>
 		<tr>
 			<td>
+				<?php echo $key['idAlumno'];?>
+			</td>
+			<td>
 				<?php echo $key['nombre']." ".$key['apellido'];
 				$idAlumno = $key['idAlumno'];
 				?>
@@ -43,11 +49,14 @@
 				$aux = 1;
 			?>
 			<td>
-				<input type="number" name="notaAlumno<?php echo $key['idAlumno']?>"  step='0.1' min="1" max="7" required> 
+				<input type="number" name="notaAlumno<?php echo $key['idAlumno']?>"  step='1' min="1" max="7" required> 
 				<input name="idAlumno<?php echo $key['idAlumno']?>" value="<?php echo $key['idAlumno']?>" hidden>
+
 			</td>
 			<?php
-			} else {
+			} 
+
+			else {
 				$aux = 5;
 				?>
 				<td>
@@ -79,7 +88,7 @@
 		<?php
 		$i++;
 		}
-		$nroAlumnos = $i;
+		$nroAlumnos = $i-1;
 		?>
 		
 		<input name="nroAlumnos" value="<?php echo $nroAlumnos?>" hidden>
