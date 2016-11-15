@@ -16,6 +16,7 @@ $this->menu=array(
 );
 ?>
 
+
 <h1>Editar Clase del día : <?php echo $model->fecha; ?></h1>
 
 <?php
