@@ -10,6 +10,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Agregar Anotacion', 'url'=>array('create')),
 	array('label'=>'Gestionar Anotaciones', 'url'=>array('admin')),
+	array('label'=>'Prueba', 'url'=>array('prueba')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

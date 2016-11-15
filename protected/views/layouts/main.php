@@ -4,11 +4,18 @@ $themePath = Yii::app()->theme->baseUrl;
 
 /**
  * StyleSHeets
+
+<link href="assets/css/responsive.dataTables.min.css" rel="stylesheet">
+ <link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="assets/js/dataTables.responsive.min.js"></script>
  */
 $cs
     ->registerCssFile($themePath.'/assets/css/bootstrap.css')
-    ->registerCssFile($themePath.'/assets/css/bootstrap-theme.css');
-
+    ->registerCssFile($themePath.'/assets/css/bootstrap-theme.css')
+    ->registerCssFile($themePath.'/assets/css/responsive.dataTables.min.css')
+    ->registerCssFile($themePath.'/assets/css/dataTables.bootstrap.min.css');
 /**
  * JavaScripts
  */
@@ -16,8 +23,10 @@ $cs
     ->registerCoreScript('jquery',CClientScript::POS_END)
     ->registerCoreScript('jquery.ui',CClientScript::POS_END)
     ->registerScriptFile($themePath.'/assets/js/bootstrap.min.js',CClientScript::POS_END)
+	->registerScriptFile($themePath.'/assets/js/jquery.dataTables.min.js',CClientScript::POS_END)
+	->registerScriptFile($themePath.'/assets/js/dataTables.responsive.min.js',CClientScript::POS_END)
+	->registerScriptFile($themePath.'/assets/js/dataTables.responsive.min.js',CClientScript::POS_END)
 	->registerScriptFile($themePath.'/assets/js/dual-list-box.js',CClientScript::POS_END)
-
     ->registerScript('tooltip',
         "$('[data-toggle=\"tooltip\"]').tooltip();
         $('[data-toggle=\"popover\"]').tooltip()"
@@ -66,8 +75,8 @@ $cs
 				</a>
 				</div>
 				<div id="navbar3" class="navbar-collapse collapse">
-
-		<?php $this->widget('zii.widgets.CMenu',array(
+	
+		<?php /* $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Inicio', 'url'=>array('/site/index')),
 				array('label'=>'Acerca de', 'url'=>array('/site/page', 'view'=>'about')),
@@ -83,7 +92,30 @@ $cs
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 			'htmlOptions' => array('class' => 'nav navbar-nav navbar-right'),
-		)); ?>
+		)); */?>
+		<ul class="nav navbar-nav">
+              <li class="active"><a href="<?php echo Yii::app()->homeUrl; ?>">Inicio</a></li>
+              <li><?php echo CHtml::link('Contacto',array('site/contact'),array('class'=>'btn_registro')); ?></li>
+              <li><?php echo CHtml::link('Cursos',array('/'),array('class'=>'btn_registro')); ?></li>
+              <li><?php echo CHtml::link('Evaluaciones',array('/alumno'),array('class'=>'btn_registro')); ?></li>
+              <li><?php echo CHtml::link('Anotaciones',array('/anotacion/prueba'),array('class'=>'btn_registro')); ?></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDS<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><?php echo CHtml::link('Curso',array('/curso'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Horario',array('/horario'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Alumno',array('/alumno'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Anotación',array('/anotacion'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Profesor',array('/profesor'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Clase',array('/clase'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Evaluación',array('/evaluacion'),array('class'=>'btn_registro')); ?></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Especiales</li>
+                  <li><?php echo CHtml::link('Asistencia',array('/asistencia'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Notas',array('/notas'),array('class'=>'btn_registro')); ?></li>
+                </ul>
+              </li>
+            </ul>
 			</div>
 		</div>
 	</nav><!-- mainmenu -->
