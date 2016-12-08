@@ -20,7 +20,7 @@ class Clase extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'clase';
+		return 'Clase';
 	}
 
 	/**

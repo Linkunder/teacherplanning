@@ -15,7 +15,7 @@ class Alumnorindeevaluacion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'alumnorindeevaluacion';
+		return 'Alumnorindeevaluacion';
 	}
 
 	/**

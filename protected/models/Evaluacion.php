@@ -22,7 +22,7 @@ class Evaluacion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'evaluacion';
+		return 'Evaluacion';
 	}
 
 	/**

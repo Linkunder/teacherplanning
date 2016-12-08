@@ -19,7 +19,7 @@ class Anotacion extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'anotacion';
+		return 'Anotacion';
 	}
 
 	/**

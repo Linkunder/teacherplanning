@@ -20,7 +20,7 @@ class Horario extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'horario';
+		return 'Horario';
 	}
 
 	/**
