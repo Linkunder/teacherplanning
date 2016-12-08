@@ -36,6 +36,11 @@
 		<?php echo $form->textField($model,'mail',array('size'=>45,'maxlength'=>45)); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'perfil'); ?>
+		<?php echo $form->textField($model,'perfil',array('size'=>45,'maxlength'=>45)); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Search'); ?>
 	</div>

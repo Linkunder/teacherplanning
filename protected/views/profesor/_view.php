@@ -29,5 +29,9 @@
 	<?php echo CHtml::encode($data->password); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('perfil')); ?>:</b>
+	<?php echo CHtml::encode($data->perfil); ?>
+	<br />
+
 
 </div>

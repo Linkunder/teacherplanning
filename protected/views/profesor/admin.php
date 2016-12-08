@@ -3,13 +3,13 @@
 /* @var $model Profesor */
 
 $this->breadcrumbs=array(
-	'Profesor'=>array('index'),
-	'Control',
+	'Profesors'=>array('index'),
+	'Manage',
 );
 
 $this->menu=array(
-	array('label'=>'Lista de Profesores', 'url'=>array('index')),
-	array('label'=>'Agregar Profesor', 'url'=>array('create')),
+	array('label'=>'List Profesor', 'url'=>array('index')),
+	array('label'=>'Create Profesor', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Control de Profesores</h1>
+<h1>Manage Profesors</h1>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -51,6 +51,9 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'rut',
 		'mail',
 		'password',
+		/*
+		'perfil',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

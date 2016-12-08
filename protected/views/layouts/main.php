@@ -76,7 +76,7 @@ $cs
 </head>
 
 <body>
-
+<?php if(Yii::app()->user->isGuest == false){ ?>
 	<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
@@ -113,6 +113,28 @@ $cs
               <li><?php echo CHtml::link('Cursos',array('/'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Evaluaciones',array('evaluacion/notas'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Anotaciones',array('/anotacion/prueba'),array('class'=>'btn_registro')); ?></li>
+              <li>
+              	<a>
+              	<?php
+              		if(Yii::app()->user->getState('usuario')!=null){
+              			echo Yii::app()->user->getState('usuario')->nombre;
+              		}
+
+
+              	?>
+
+              	</a>
+              </li>
+              <li><?php echo CHtml::link('Salir',array('/site/logout'),array('class'=>'btn_registro')); ?></li>
+
+
+
+
+
+              
+			<?php if(Yii::app()->user->getState('usuario')->perfil==1){?>
+              		
+              	
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDS<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -129,10 +151,15 @@ $cs
                   <li><?php //echo CHtml::link('Notas',array('/notas'),array('class'=>'btn_registro')); ?></li>
                 </ul>
               </li>
+              <?php } ?>
             </ul>
 			</div>
 		</div>
-	</nav><!-- mainmenu -->
+	</nav>
+
+<?php } ?>
+
+	<!-- mainmenu -->
 	<div class="container">
 	<div class="page-header">
 	<?php if(isset($this->breadcrumbs)):?>

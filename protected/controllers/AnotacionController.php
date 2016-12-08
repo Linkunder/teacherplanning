@@ -37,7 +37,7 @@ class AnotacionController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('*'),
 			),
 			///////////////////////PRUEBA///////////////////////////
 			array('allow',
@@ -180,7 +180,7 @@ class AnotacionController extends Controller
 			$model->attributes=$_GET['Anotacion'];
 		//idProfesor = 1 Profesor de prueba
 		$todosLosCursos = Curso::model()->findAllByAttributes(
-			array('idProfesor' => '1'));
+			array('idProfesor' => Yii::app()->user->getState('usuario')->idProfesor));
 		$todosLosAlumnos = Alumno::model()->findAll();
 		$this->render('prueba', array('model'=>$model, 'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
 	}
