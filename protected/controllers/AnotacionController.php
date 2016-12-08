@@ -39,6 +39,16 @@ class AnotacionController extends Controller
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
 			),
+			///////////////////////PRUEBA///////////////////////////
+			array('allow',
+				'actions' =>array('prueba','prueba'),
+				'users'=>array('*'),
+				),
+			array('allow',
+				'actions' =>array('_anotacionesAlumno','PartialAnotaciones'),
+				'users' =>array('*'),
+				),
+			//////////////////////PRUEBA///////////////////////////
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -70,12 +80,21 @@ class AnotacionController extends Controller
 		if(isset($_POST['Anotacion']))
 		{
 			$model->attributes=$_POST['Anotacion'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idAnotacion));
+			//Aqui lo guarda y redirige
+			if(!isset($_POST['modal'])){
+				if($model->save()){
+					$this->redirect(array('view','id'=>$model->idAnotacion));
+				}
+			}else{
+				if($model->save()){
+					header('Location:?r=anotacion/prueba&modal=1');
+				}else{
+					header('Location:?r=anotacion/prueba&modal=2');
+				}
+			}
 		}
+
         $todosLosAlumnos = Alumno::model()->findAll();
-
-
 		$this->render('create',array(
 			'model'=> $model,
             'todosLosAlumnos' => $todosLosAlumnos,
@@ -149,6 +168,29 @@ class AnotacionController extends Controller
 		));
 	}
 
+	/////////////PRUEBA/////////////////////////
+		public function actionPrueba()
+	{
+		$model=new Anotacion('search');
+		$model->unsetAttributes();  // clear any default values
+		$alerta=0;
+		if(isset($_GET['modal']))
+			$alerta = $_GET['modal'];
+		if(isset($_GET['Anotacion']))
+			$model->attributes=$_GET['Anotacion'];
+		//idProfesor = 1 Profesor de prueba
+		$todosLosCursos = Curso::model()->findAllByAttributes(
+			array('idProfesor' => '1'));
+		$todosLosAlumnos = Alumno::model()->findAll();
+		$this->render('prueba', array('model'=>$model, 'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
+	}
+
+	public function actionPartialAnotaciones(){
+		$idAlumno = $_GET['idAlumno'];
+		$todasLasAnotaciones = Anotacion::model()->findAllByAttributes(array('idAlumno' => $idAlumno, ));
+		$this->renderPartial('_anotacionesAlumno', array('todasLasAnotaciones'=>$todasLasAnotaciones,));
+	}
+	/////////////PRUEBA/////////////////////////
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
