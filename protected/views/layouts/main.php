@@ -110,31 +110,13 @@ $cs
 		)); */?>
 		<ul class="nav navbar-nav">
               <li class="active"><a href="<?php echo Yii::app()->homeUrl; ?>">Inicio</a></li>
-              <li><?php echo CHtml::link('Cursos',array('/'),array('class'=>'btn_registro')); ?></li>
+              <li ><?php echo CHtml::link('Cursos',array('/curso/cursos'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Evaluaciones',array('evaluacion/notas'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Anotaciones',array('/anotacion/prueba'),array('class'=>'btn_registro')); ?></li>
-              <li>
-              	<a>
-              	<?php
-              		if(Yii::app()->user->getState('usuario')!=null){
-              			echo Yii::app()->user->getState('usuario')->nombre;
-              		}
-
-
-              	?>
-
-              	</a>
-              </li>
-              <li><?php echo CHtml::link('Salir',array('/site/logout'),array('class'=>'btn_registro')); ?></li>
-
-
-
-
-
               
-			<?php if(Yii::app()->user->getState('usuario')->perfil==1){?>
-              		
-              	
+              <?php 
+              if(Yii::app()->user->getState('usuario')->perfil==1){
+              	?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDS<span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -151,7 +133,21 @@ $cs
                   <li><?php //echo CHtml::link('Notas',array('/notas'),array('class'=>'btn_registro')); ?></li>
                 </ul>
               </li>
-              <?php } ?>
+              <?php 
+		          } 
+		        ?>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            	<li>
+              	<a>
+              	<?php
+              		if(Yii::app()->user->getState('usuario')!=null){
+              			echo Yii::app()->user->getState('usuario')->nombre;
+              		}
+              	?>
+              	</a>
+              </li>
+              <li><?php echo CHtml::link('Salir',array('/site/logout'),array('class'=>'btn_registro')); ?></li>
             </ul>
 			</div>
 		</div>

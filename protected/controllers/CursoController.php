@@ -33,17 +33,61 @@ class CursoController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('*'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('cursos','cursos'),
+				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
+
+
+
+	public function actionCursos()
+	{
+		$model=new Anotacion('search');
+		$model->unsetAttributes();  // clear any default values
+		$alerta=0;
+		if(isset($_GET['modal']))
+			$alerta = $_GET['modal'];
+		if(isset($_GET['Anotacion']))
+			$model->attributes=$_GET['Anotacion'];
+		//idProfesor = 1 Profesor de prueba
+		$todosLosCursos = Curso::model()->findAllByAttributes(
+			array('idProfesor' => Yii::app()->user->getState('usuario')->idProfesor));
+		$todosLosAlumnos = Alumno::model()->findAll();
+		$this->render('cursos', array('model'=>$model, 'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
+	}
+
+	public function actionPartialAnotaciones(){
+		$idAlumno = $_GET['idAlumno'];
+		$todasLasAnotaciones = Anotacion::model()->findAllByAttributes(array('idAlumno' => $idAlumno, ));
+		$this->renderPartial('_anotacionesAlumno', array('todasLasAnotaciones'=>$todasLasAnotaciones,));
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/**
 	 * Displays a particular model.
