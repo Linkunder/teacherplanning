@@ -76,7 +76,9 @@ $cs
 </head>
 
 <body>
-<?php if(Yii::app()->user->isGuest == false){ ?>
+		<?php 
+		if(Yii::app()->user->isGuest == false){ 
+        ?>
 	<nav class="navbar navbar-inverse navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
@@ -110,11 +112,16 @@ $cs
 		)); */?>
 		<ul class="nav navbar-nav">
               <li class="active"><a href="<?php echo Yii::app()->homeUrl; ?>">Inicio</a></li>
+              <?php
+              if(Yii::app()->user->getState('usuario')->perfil==0){
+              ?>
               <li ><?php echo CHtml::link('Cursos',array('/curso/cursos'),array('class'=>'btn_registro')); ?></li>
+
               <li><?php echo CHtml::link('Evaluaciones',array('evaluacion/notas'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Anotaciones',array('/anotacion/prueba'),array('class'=>'btn_registro')); ?></li>
               
               <?php 
+          }
               if(Yii::app()->user->getState('usuario')->perfil==1){
               	?>
               <li class="dropdown">
