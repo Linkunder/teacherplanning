@@ -17,17 +17,35 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
-		return !$this->errorCode;
+
+		$usuario = Profesor::model()->findByAttributes(
+			array(
+				'mail' => $this->username,
+				)
+			);
+
+        if($usuario==null){
+            $this->errorCode=self::ERROR_USERNAME_INVALID;
+        }else{
+            if(trim($usuario->password) == trim($this->password)){
+                /* Usuario Autenticado !! */
+                $this->errorCode=self::ERROR_NONE;
+                Yii::app()->user->setState('idProfesor',$usuario->idProfesor);
+                Yii::app()->user->setState('usuario',$usuario);
+                /*switch($usuario->perfil){
+                    case 0: 
+                        $this->username='profesor';    
+                        break;
+                    case 1:
+                        $this->username='super';    
+                        break;
+                }*/
+                
+            }else{
+                $this->errorCode=self::ERROR_PASSWORD_INVALID;
+            }
+        
+        }        
+        return !$this->errorCode;
 	}
 }
