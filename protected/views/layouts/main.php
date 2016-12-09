@@ -119,6 +119,7 @@ $cs
 
               <li><?php echo CHtml::link('Evaluaciones',array('evaluacion/notas'),array('class'=>'btn_registro')); ?></li>
               <li><?php echo CHtml::link('Anotaciones',array('/anotacion/prueba'),array('class'=>'btn_registro')); ?></li>
+              <li><?php echo CHtml::link('Calendario',array('/calendario/calendarios'),array('class'=>'btn_registro')); ?></li>
               
               <?php 
           }
