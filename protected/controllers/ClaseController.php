@@ -29,15 +29,16 @@ class ClaseController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'users'=>array('@'),
 			),
+            /*
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
-			),
+			),*/
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('index','view','create','update','admin','delete'),
+				'users'=>array('profesor'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -51,8 +52,9 @@ class ClaseController extends Controller
 	 */
 	public function actionView($id)
 	{
+	    $model = $this->loadModel($id); // clase
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=> $model,
 		));
 	}
 
@@ -148,9 +150,21 @@ class ClaseController extends Controller
 	 */
 	public function actionIndex()
 	{
+        $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
+        $clasesPorCurso = [];
+        $nombreCursos = [];
+        foreach ($todosLosCursos as $curso){
+            array_push($nombreCursos, $curso->nombre);
+            $clases = Clase::model()->findAllByAttributes(['idCurso' => $curso->idCurso]);
+            array_push($clasesPorCurso, $clases);
+        }
+
 		$dataProvider=new CActiveDataProvider('Clase');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+            'todosLosCursos' => $todosLosCursos,
+            'clasesPorCurso' => $clasesPorCurso,
+            'nombreCursos' => $nombreCursos,
 		));
 	}
 
