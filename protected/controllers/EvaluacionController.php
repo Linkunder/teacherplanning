@@ -48,6 +48,10 @@ class EvaluacionController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', 
+				'actions'=>array('_notas','partialEvaluar'),
+				'users'=>array('*'),
+			),
+			array('allow', 
 				'actions'=>array('calificar','calificar'),
 				'users'=>array('*'),
 			),
@@ -76,9 +80,21 @@ class EvaluacionController extends Controller
 	public function actionPartialEvaluaciones(){
 		$idCurso = $_GET['idCurso'];
 		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
-		$this->renderPartial('_notas', array('evaluacionesCurso'=>$evaluacionesCurso,));
+		$notasCurso = array();
+		foreach ($evaluacionesCurso as $key ) {
+			$idEvaluacion = $key->idEvaluacion;
+			// Traer notas por EVALUACIÓN. 
+			$notasCurso[$idEvaluacion] = AlumnoRindeEvaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		}
+		$this->renderPartial('_notasParciales', array('evaluacionesCurso'=>$evaluacionesCurso,'notasCurso'=>$notasCurso ));
 	}
 
+
+	public function actionpartialEvaluar(){
+		$idCurso = $_GET['idCurso'];
+		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		$this->renderPartial('_evaluacionesCurso', array('evaluacionesCurso'=>$evaluacionesCurso,));
+	}
 
 
 	public function actionCalificar(){
@@ -148,9 +164,11 @@ class EvaluacionController extends Controller
 		if(isset($_POST['Evaluacion']))
 		{
 			$model->attributes=$_POST['Evaluacion'];
-			if($model->save())
+			if($model->save()){
 				$this->redirect(array('view','id'=>$model->idEvaluacion));
+			}
 		}
+
 
 		$todosLosCursos = Curso::model()->findAll();
 

@@ -55,16 +55,20 @@ class CursoController extends Controller
 	{
 		$model=new Anotacion('search');
 		$model->unsetAttributes();  // clear any default values
+		$modelEvaluacion=new Evaluacion('search');
+		$modelEvaluacion->unsetAttributes();  // clear any default values
 		$alerta=0;
 		if(isset($_GET['modal']))
 			$alerta = $_GET['modal'];
 		if(isset($_GET['Anotacion']))
 			$model->attributes=$_GET['Anotacion'];
+		if(isset($_GET['Evaluacion']))
+			$modelEvaluacion->attributes= $_GET['Evaluacion'];
 		//idProfesor = 1 Profesor de prueba
 		$todosLosCursos = Curso::model()->findAllByAttributes(
 			array('idProfesor' => Yii::app()->user->getState('usuario')->idProfesor));
 		$todosLosAlumnos = Alumno::model()->findAll();
-		$this->render('cursos', array('model'=>$model, 'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
+		$this->render('cursos', array('model'=>$model, 'modelEvaluacion'=>$modelEvaluacion,'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
 	}
 
 	public function actionPartialAnotaciones(){

@@ -21,6 +21,9 @@ $this->breadcrumbs=array(
  ?>
 
 <h1>Mis cursos</h1>
+<p><strong>Instrucciones</strong>: Para agregar un curso debes hacer click <button class="btn btn-xs btn-primary">aqui</button>. Una vez que tengas cursos para
+administrar, puedes agregar alumnos, una vez hecho esto, puedes ver sus notas parciales y agregar una evaluación con las notas
+de tus alumnos</p>
 
 <!--Acordion que despliega los cursos del profesor (avance 1 = idProfesor = 1 )-->
 <div class="panel-group" id="accordion">
@@ -36,14 +39,13 @@ $this->breadcrumbs=array(
     </div>
     <div id="collapse<?php echo $curso->idCurso;?>" class="panel-collapse collapse">
       <div class="panel-body">
-      <div id="alumnos">
-      <!--Estudiantes del curso -->
-		<!--Aqui se debe hacer un RenderPartial()-->
-		<?php $this->renderPartial('_alumnosCurso', array('todosLosAlumnos'=>$todosLosAlumnos, 'idCurso' => $curso->idCurso));?>
+        <div id="alumnos">
         <!--Estudiantes del curso -->
-       </div>
+		    <!--Aqui se debe hacer un RenderPartial()-->
+		    <?php $this->renderPartial('_alumnosCurso', array('todosLosAlumnos'=>$todosLosAlumnos, 'idCurso' => $curso->idCurso));?>
+        <!--Estudiantes del curso -->
+        </div>
       </div>
-
     </div>
   </div>
 
@@ -73,7 +75,7 @@ $this->breadcrumbs=array(
   </div>
 </div>
 
-  <div id="modalAgregar" class="modal fade" role="dialog">
+<div id="modalAgregar" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -95,6 +97,75 @@ $this->breadcrumbs=array(
 </div>
 
 
+<div id="modalNotas" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Notas parciales</h4>
+      </div>
+      <div class="modal-body">
+        <div id="notas">
+        </div>
+      </div>
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<div id="modalEvaluacion" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Nueva evaluación</h4>
+      </div>
+      <div class="modal-body">
+      <?php $this->renderPartial('_formEvaluacion', array('modelEvaluacion'=>$modelEvaluacion,));?>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="modalEvaluaciones" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Evaluaciones del curso</h4>
+      </div>
+      <div class="modal-body">
+      <div id="evaluaciones">
+        
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
 
 
       <script>
@@ -106,14 +177,34 @@ $this->breadcrumbs=array(
       	idAlumno = $(this).data('id');
       });
 
+      $('.nc').click(function (e){
+        e.preventDefault();
+        idCurso = $(this).data('id');
+      });
+
+
       $('#myModal').on('show.bs.modal', function (e){
       	$('#anotaciones').load('index.php?r=anotacion/partialAnotaciones&idAlumno='+ idAlumno);
       });
 
       $('#modalAgregar').on('show.bs.modal', function (e){
       	document.getElementsByName("Anotacion[idAlumno]")[0].setAttribute("value", idAlumno);
-      	
       });
+
+      $('#modalNotas').on('show.bs.modal', function (e){
+        $('#notas').load('index.php?r=evaluacion/partialEvaluaciones&idCurso='+ idCurso);
+      });
+
+      $('#modalEvaluacion').on('show.bs.modal', function (e){
+          document.getElementsByName("Evaluacion[idCurso]")[0].setAttribute("value", idCurso);
+      });
+
+
+      $('#modalEvaluaciones').on('show.bs.modal', function (e){
+        $('#evaluaciones').load('index.php?r=evaluacion/partialEvaluar&idCurso='+ idCurso);
+      });
+
+
       </script>
 
       
