@@ -16,7 +16,7 @@ class EvaluacionController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-		);
+			);
 	}
 
 	/**
@@ -30,39 +30,47 @@ class EvaluacionController extends Controller
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('*'),
-			),
+				),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
-			),
+				),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'users'=>array('admin'),
-			),
+				),
 			array('allow', 
 				'actions'=>array('notas','notas'),
 				'users'=>array('*'),
-			),
+				),
 			array('allow', 
 				'actions'=>array('_notas','partialEvaluaciones'),
 				'users'=>array('*'),
-			),
+				),
 			array('allow', 
 				'actions'=>array('_notas','partialEvaluar'),
 				'users'=>array('*'),
-			),
+				),
+			array('allow', 
+				'actions'=>array('_notas','partialAgregarNotas'),
+				'users'=>array('*'),
+				),
+			array('allow', 
+				'actions'=>array('_notas','registrarNotas'),
+				'users'=>array('*'),
+				),
 			array('allow', 
 				'actions'=>array('calificar','calificar'),
 				'users'=>array('*'),
-			),
+				),
 			array('allow', 
 				'actions'=>array('calificar','SetCalificaciones'),
 				'users'=>array('*'),
-			),
+				),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
-		);
+				),
+			);
 	}
 
 
@@ -73,8 +81,8 @@ class EvaluacionController extends Controller
 
 		$this->render('notas',array(
 			'model'=>$model,
-            'todosLosCursos' => $todosLosCursos,
-		));
+			'todosLosCursos' => $todosLosCursos,
+			));
 	}
 
 	public function actionPartialEvaluaciones(){
@@ -95,6 +103,45 @@ class EvaluacionController extends Controller
 		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
 		$this->renderPartial('_evaluacionesCurso', array('evaluacionesCurso'=>$evaluacionesCurso,));
 	}
+
+	public function actionpartialAgregarNotas(){
+		$idEvaluacion = $_GET['idEvaluacion'];
+		$evaluacion = Evaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		$idCurso = end($evaluacion)->idCurso;
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		$this->renderPartial('_agregarNotas', array('evaluacion'=>$evaluacion,'alumnosCurso'=>$alumnosCurso  ));
+	}
+
+	public function actionregistrarNotas(){
+		$idEvaluacion = $_POST['idEvaluacion'];
+		$evaluacion = Evaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		$idCurso = end($evaluacion)->idCurso;
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		foreach ($alumnosCurso as $key) {
+			$model = new Alumnorindeevaluacion;
+			$notaAlumno = $_POST['notaAlumno'.$key->idAlumno];
+			$idAlumno = $key->idAlumno;
+
+			$model->idAlumno = $idAlumno;
+			$model->idEvaluacion = $idEvaluacion;
+			$model->nota = $notaAlumno;
+			$model->save();
+		}
+		header('Location:?r=curso/cursos');		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 	public function actionCalificar(){
@@ -147,7 +194,7 @@ class EvaluacionController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-		));
+			));
 	}
 
 	/**
@@ -175,7 +222,7 @@ class EvaluacionController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'todosLosCursos'=>$todosLosCursos
-		));
+			));
 	}
 
 	/**
@@ -202,7 +249,7 @@ class EvaluacionController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 			'todosLosCursos'=>$todosLosCursos
-		));
+			));
 	}
 
 	/**
@@ -227,7 +274,7 @@ class EvaluacionController extends Controller
 		$dataProvider=new CActiveDataProvider('Evaluacion');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-		));
+			));
 	}
 
 	/**
@@ -242,7 +289,7 @@ class EvaluacionController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
-		));
+			));
 	}
 
 	/**
