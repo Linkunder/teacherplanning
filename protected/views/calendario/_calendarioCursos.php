@@ -34,7 +34,7 @@
           
       </div>
 
-      <?php var_dump($cursos) ?>
+
 
 
       
@@ -97,7 +97,6 @@
         ]
       });
 
-
-
   });
+
 </script>

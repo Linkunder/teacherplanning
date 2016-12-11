@@ -1,4 +1,13 @@
+    <?php 
+      $aux="";
+      $cont=0;
+      foreach ($cursos as $key) {
+         $aux.=$key->idCurso.",";
 
+      }
+      $_SESSION['id']=$aux;
+
+     ?>;
 
 <!--MODAL -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -33,15 +42,6 @@
 
           
       </div>
-<?php var_dump($evaluaciones);
-
-
-	var_dump($horarios);
-
-
-
-
-?>
 
 
 
@@ -68,7 +68,11 @@
 
 <script>
 
+
+
+
   $(document).ready(function() {
+
     var hoy = new Date();
     var dd = hoy.getDate();
     var mm = hoy.getMonth()+1; //hoy es 0!
@@ -98,11 +102,33 @@
       
 
       // Partidos
-      events: [
-      {
-					title: 'All Day Event',
-					start: '2016-12-12'
-				},
+      eventSources: [
+       
+         
+           
+          <?php
+           foreach ($cursos as $curso){
+
+          ?>
+          {
+            url: '<?php echo CController::createUrl('calendario/WsDatosEvaluacionesCursos') ?>',
+            type: 'POST',
+            data: {
+ 
+                idCurso: <?php echo $curso->idCurso;?>
+              
+                
+            },
+            error: function() {
+                alert('error al hacer request');
+            },
+                    //luego de recorrer los cursos se setean los colores etc
+            color: 'yellow',   // a non-ajax option
+            textColor: 'black' // a non-ajax option
+          },
+          <?php
+            }
+          ?>
 				
         ]
       });

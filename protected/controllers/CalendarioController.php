@@ -28,7 +28,7 @@ class CalendarioController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('calendarios'),
+				'actions'=>array('calendarios','WsDatosEvaluacionesCursos'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -44,16 +44,6 @@ class CalendarioController extends Controller
 
 
 
-	public function actionPartialCalEvaluaciones(){
-		$idAlumno = $_GET['idAlumno'];
-		$cursos = Curso::model()->findAllByAttributes(array('idProfesor' => $idProfesor,));
-		$this->renderPartial('_calendarioEvaluaciones', array('cursos'=>$cursos,));
-	}
-		public function actionPartialCalCursos(){
-		$idAlumno = $_GET['idAlumno'];
-		$todasLasAnotaciones = Anotacion::model()->findAllByAttributes(array('idProfesor' => $idAlumno, ));
-		$this->renderPartial('_calendarioCursos', array('todasLasAnotaciones'=>$todasLasAnotaciones,));
-	}
 
 
 	public function actionCalendarios()
@@ -80,6 +70,35 @@ class CalendarioController extends Controller
 	{
 		$this->renderPartial('_calendarioCursos');
 	}
+
+	 public function actionWsDatosEvaluacionesCursos(){
+        //LLamada: index.php?r=producto/wsDatosProducto&id=2
+        $id = -1;
+        if(isset($_POST['idCurso'])){
+            $id = $_POST['idCurso'];
+        }
+
+
+        $curso = Curso::model()->findByPk($id);
+        $evaluacion = Evaluacion::model()->findAllByAttributes(array('idCurso' =>$id,));
+       
+        /* Modelo completo */
+        //echo JSON::encode($producto);
+
+        /* Modelo Personalizado */
+        $cont=0;
+        $datos_json = array();
+        foreach ($evaluacion as $ev) {     
+	        $datos_json[$cont] = array();
+	        $datos_json[$cont]['id'] = $ev->idEvaluacion;
+	        $datos_json[$cont]['title'] = $ev->nombre."-".$curso->nombre;
+	        $datos_json[$cont]['start'] = $ev->fecha;
+	        $cont++;
+        }
+
+
+        echo CJSON::encode($datos_json);
+    }
 
 
 

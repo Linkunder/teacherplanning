@@ -31,7 +31,7 @@ $this->breadcrumbs=array(
         <div id="menu2" class="tab-pane fade">
           <div class="col-md-12">
             <br>
-				<?php $this->renderPartial('_calendarioEvaluaciones', array('evaluaciones'=>$evaluaciones,'horarios' => $horarios,));?>
+				<?php $this->renderPartial('_calendarioEvaluaciones', array('cursos'=>$cursos,));?>
 			
 
       	 </div>
