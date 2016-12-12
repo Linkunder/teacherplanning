@@ -90,13 +90,59 @@
       
 
       // Partidos
-      events: [
-      
-				
-      
-        ]
+  eventSources: [
+       
+         
+           
+          <?php
+           foreach ($cursos as $curso){
+
+          ?>
+          {
+            url: '<?php echo CController::createUrl('calendario/WsDatosHorariosCursos') ?>',
+            type: 'POST',
+            data: {
+ 
+                idCurso: <?php echo $curso->idCurso;?>
+              
+                
+            },
+            error: function() {
+                alert('error al hacer request');
+            },
+
+                    //luego de recorrer los cursos se setean los colores etc
+            color: 'yellow',   // a non-ajax option
+            textColor: 'black' // a non-ajax option
+          },
+          <?php
+            }
+          ?>
+        
+        ],
+        eventClick:  function(event, jsEvent, view) {
+            $('#modalTitle').html(event.title);
+            $('#modalBody').html(event.description);
+            $('#calendarModal').modal();
+        },
+
       });
 
   });
 
 </script>
+
+<div id="calendarModal" class="modal fade">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">cerrar</span></button>
+            <h4 id="modalTitle" class="modal-title"></h4>
+        </div>
+        <div id="modalBody" class="modal-body"> </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+        </div>
+    </div>
+</div>
+</div>

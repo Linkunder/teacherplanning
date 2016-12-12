@@ -28,7 +28,7 @@ class CalendarioController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('calendarios','WsDatosEvaluacionesCursos'),
+				'actions'=>array('calendarios','WsDatosEvaluacionesCursos','WsDatosHorariosCursos'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -91,8 +91,40 @@ class CalendarioController extends Controller
         foreach ($evaluacion as $ev) {     
 	        $datos_json[$cont] = array();
 	        $datos_json[$cont]['id'] = $ev->idEvaluacion;
-	        $datos_json[$cont]['title'] = $ev->nombre."-".$curso->nombre;
+	        $datos_json[$cont]['title'] = $ev->nombre." ".$curso->nombre;
+	        $datos_json[$cont]['description']= "Descripción: ".$ev->descripcion."</br>"."Ponderación: ".$ev->ponderacion."%"."</br>"."Institución: ".$curso->institucion;
 	        $datos_json[$cont]['start'] = $ev->fecha;
+	        $cont++;
+        }
+
+
+        echo CJSON::encode($datos_json);
+    }
+
+    public function actionWsDatosHorariosCursos(){
+        //LLamada: index.php?r=producto/wsDatosProducto&id=2
+        $id = -1;
+        if(isset($_POST['idCurso'])){
+            $id = $_POST['idCurso'];
+        }
+
+        $curso = Curso::model()->findByPk($id);
+        $horarios = Horario::model()->findAllByAttributes(array('idCurso' =>$id,));
+       
+        /* Modelo completo */
+        //echo JSON::encode($producto);
+
+        /* Modelo Personalizado */
+        $cont=0;
+        $datos_json = array();
+        foreach ($horarios as $horario) {     
+	        $datos_json[$cont] = array();
+	        $datos_json[$cont]['id'] = $horario->idHorario;
+	        $datos_json[$cont]['title'] = $curso->nombre;
+	        $datos_json[$cont]['description'] = "Institución: ".$curso->institucion."</br>"."Horario: ".$horario->horaInicio."-".$horario->horaFin;
+	        $datos_json[$cont]['start'] = $horario->horaInicio;
+	        $datos_json[$cont]['end'] = $horario->horaFin;
+	        $datos_json[$cont]['dow'] = [$horario->dia];
 	        $cont++;
         }
 

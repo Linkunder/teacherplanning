@@ -20,7 +20,7 @@ $this->breadcrumbs=array(
         <div id="menu1" class="tab-pane fade">
           <div class="col-md-12">
             <br>
-				<?php $this->renderPartial('_calendarioCursos', array('cursos'=>$cursos, 'horarios' => $horarios,)); ?>
+				<?php $this->renderPartial('_calendarioCursos', array('cursos'=>$cursos,)); ?>
 
 
       	 </div>

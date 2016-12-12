@@ -7,7 +7,7 @@
       }
       $_SESSION['id']=$aux;
 
-     ?>;
+     ?>
 
 <!--MODAL -->
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -115,7 +115,7 @@
             type: 'POST',
             data: {
  
-                idCurso: <?php echo $curso->idCurso;?>
+                idCurso: <?php echo $curso->idCurso?>
               
                 
             },
@@ -130,10 +130,29 @@
             }
           ?>
 				
-        ]
+        ],
+            eventClick:  function(event, jsEvent, view) {
+            $('#modalTitle2').html(event.title);
+            $('#modalBody2').html(event.description);
+            $('#calendarModal2').modal();
+        },
       });
 
 
 
   });
 </script>
+<div id="calendarModal2" class="modal fade">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">Cerrar</span></button>
+            <h4 id="modalTitle2" class="modal-title"></h4>
+        </div>
+        <div id="modalBody2" class="modal-body"> </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+    </div>
+</div>
+</div>
