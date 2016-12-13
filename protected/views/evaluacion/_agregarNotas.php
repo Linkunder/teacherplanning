@@ -1,5 +1,5 @@
 <form method="post" action="?r=evaluacion/registrarNotas" >
-<input type="text" name="idEvaluacion" value="<?php echo end($evaluacion)->idEvaluacion?>" >
+<input type="text" name="idEvaluacion" value="<?php echo end($evaluacion)->idEvaluacion?>" hidden>
       <table class="table table-bordered table-responsive">
             <tr class="bg-primary">
                 <th width="10%">Alumno</th>

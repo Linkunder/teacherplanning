@@ -57,6 +57,8 @@ class CursoController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		$modelEvaluacion=new Evaluacion('search');
 		$modelEvaluacion->unsetAttributes();  // clear any default values
+		$modelCurso = new Curso('search');
+		$modelCurso->unsetAttributes();
 		$alerta=0;
 		if(isset($_GET['modal']))
 			$alerta = $_GET['modal'];
@@ -68,7 +70,7 @@ class CursoController extends Controller
 		$todosLosCursos = Curso::model()->findAllByAttributes(
 			array('idProfesor' => Yii::app()->user->getState('usuario')->idProfesor));
 		$todosLosAlumnos = Alumno::model()->findAll();
-		$this->render('cursos', array('model'=>$model, 'modelEvaluacion'=>$modelEvaluacion,'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
+		$this->render('cursos', array('model'=>$model, 'modelEvaluacion'=>$modelEvaluacion, 'modelCurso'=>$modelCurso,'todosLosAlumnos' =>$todosLosAlumnos, 'todosLosCursos' =>$todosLosCursos, 'alerta' =>$alerta,));
 	}
 
 	public function actionPartialAnotaciones(){
@@ -118,16 +120,21 @@ class CursoController extends Controller
 		if(isset($_POST['Curso']))
 		{
 			$model->attributes=$_POST['Curso'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idCurso));
+			if($model->save()){
+				header('Location:?r=curso/cursos&modal=3');
+			} else {
+				header('Location:?r=curso/cursos&modal=4');
+			}
 		}
 
         $todosLosProfesores = Profesor::model()->findAll();
 
-		$this->render('create',array(
+		/*$this->render('create',array(
 			'model'=>$model,
             'todosLosProfesores' => $todosLosProfesores,
-		));
+		));*/
+
+
 	}
 
 	/**

@@ -20,9 +20,29 @@ $this->breadcrumbs=array(
  <?php }
  ?>
 
+
+<?php if($alerta==3){ ?>
+  <div class="alert alert-success">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>Listo!</strong> Se ha ingresado el curso.
+ </div>
+ <?php }
+ if($alerta == 4){ ?>
+ <div class="alert alert-danger">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>ups!</strong> No se ha podido ingresar el curso.
+ </div>
+ <?php }
+ ?>
+
+
  <h1>Mis cursos</h1>
+ <?php
+ $idProfesor = Yii::app()->user->getState('usuario')->idProfesor;
+ ?>
+
  <p><strong>Instrucciones</strong>: Para agregar un curso debes hacer click 
-   <button class="btn btn-xs btn-primary">
+   <button id="<?php echo $idProfesor;?>" class="btn btn-xs btn-primary nv" data-toggle="modal" data-target="#nuevoCurso" data-id="<?php echo $idProfesor;?>">
      aqui</button>. 
      Una vez que tengas cursos para
      administrar, puedes agregar alumnos, una vez hecho esto, puedes ver sus notas parciales y agregar una evaluación con las notas
@@ -166,6 +186,23 @@ $this->breadcrumbs=array(
     </div>
 
 
+    <div id="nuevoCurso" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Nuevo curso</h4>
+          </div>
+          <div class="modal-body">
+            <?php $this->renderPartial('_formCurso', array('modelCurso'=>$modelCurso,));?>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 
 
 
@@ -189,6 +226,15 @@ $this->breadcrumbs=array(
         e.preventDefault();
         idCurso = $(this).data('id');
       });
+
+      $('.nv').click(function (e){
+        e.preventDefault();
+        idProfesor = $(this).data('id');
+      });
+
+      
+
+
 
 
       // Anotaciones 
@@ -217,6 +263,11 @@ $this->breadcrumbs=array(
         $('#evaluaciones').load('index.php?r=evaluacion/partialEvaluar&idCurso='+ idCurso);
       });
 
+
+      // Agregar un curso.
+      $('#nuevoCurso').on('show.bs.modal', function (e){
+        document.getElementsByName("Curso[idProfesor]")[0].setAttribute("value", idProfesor);
+      });
 
     </script>
 
