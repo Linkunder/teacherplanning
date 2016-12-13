@@ -73,3 +73,18 @@ if (!empty($evaluacionesCurso)){
 
 
 
+        <script>
+            //var idEvaluacion = 1;
+
+            $('.rb').click(function (e){
+                e.preventDefault();
+                idEvaluacion = $(this).data('id'); 
+            });
+
+            // Ver evaluaciones del curso. (para luego agregar las notas de una evaluación)
+            $('#modalAgregarNotas').on('show.bs.modal', function (e){
+                $('#modalEvaluaciones').modal('hide');
+                $('#agregarNotas').load('index.php?r=evaluacion/partialAgregarNotas&idEvaluacion='+ idEvaluacion);
+            });
+
+        </script>

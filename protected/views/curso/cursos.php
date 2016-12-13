@@ -35,6 +35,22 @@ $this->breadcrumbs=array(
  <?php }
  ?>
 
+<?php if($alerta==5){ ?>
+  <div class="alert alert-success">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>Listo!</strong> Se ha ingresado la evaluación.
+ </div>
+ <?php }
+ if($alerta == 6){ ?>
+ <div class="alert alert-danger">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>ups!</strong> No se ha podido ingresar la evaluación.
+ </div>
+ <?php }
+ ?>
+
+
+
 
  <h1>Mis cursos</h1>
  <?php

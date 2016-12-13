@@ -212,9 +212,13 @@ class EvaluacionController extends Controller
 		{
 			$model->attributes=$_POST['Evaluacion'];
 			if($model->save()){
-				$this->redirect(array('view','id'=>$model->idEvaluacion));
+				header('Location:?r=curso/cursos&modal=5');
+			} else {
+				header('Location:?r=curso/cursos&modal=6');
 			}
 		}
+
+
 
 
 		$todosLosCursos = Curso::model()->findAll();
