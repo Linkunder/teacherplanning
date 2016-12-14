@@ -25,6 +25,6 @@ $this->renderPartial('_form', array(
 	'todosLosCursos'=>$todosLosCursos,
 	'modelAlumno' => $modelAlumno,
 	'listaAlumnos' => $listaAlumnos,
-	'paidAlumnos' => $paidAlumnos,
+    'listaAsistencia' => $listaAsistencia,
 ));
 ?>

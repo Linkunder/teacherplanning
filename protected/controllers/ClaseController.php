@@ -65,25 +65,29 @@ class ClaseController extends Controller
 	public function actionCreate()
 	{
 		$model=new Clase;
-
-        //$themePath = Yii::app()->theme->baseUrl; //$baseUrl = Yii::app()->baseUrl;
-        //$cs = Yii::app()->getClientScript();
-        //$cs->registerScriptFile($themePath.'/assets/js/dual-list-box.js');
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
 
         /**** DUAL-LIST-BOX */
         $modelAlumno = new Alumno();
 
-        $idCurso = Clase::model()->idCurso;
-        $listaAlumnos = Alumno::model()->findAllByAttributes(['idCurso' => $idCurso]);
+        $listaAlumnos = [];
+        $listaAsistencia = []; // inicialmente vacia porque creamos un curso y no se ha pasado lista
 
-        $criteria = new CDbCriteria;
-        $criteria->addCondition('idAlumno=:id');
-        $criteria->params = array(':id' => 1);
-        $paidAlumnos = Alumno::model()->findAll($criteria);
+        foreach ($todosLosCursos as $curso){
+            array_push($listaAlumnos, Alumno::model()->findAllByAttributes(['idCurso' => $curso->idCurso]));
+        }
         /**** FIN DUAL-LIST-BOX */
+
+        /*
+        if (isset($_POST["arrayContactos"])){
+			$miembros = $_POST["arrayContactos"];
+			for ($i=0; $i<count($miembros) ; $i++) {
+				$idMiembro = $miembros[$i];
+				$this->Equipo->agregarMiembroEquipo($idMiembro,$idEquipo);
+				}
+			}
+		}
+        */
 
 		if(isset($_POST['Clase']))
 		{
@@ -92,14 +96,12 @@ class ClaseController extends Controller
 				$this->redirect(array('view','id'=>$model->idClase));
 		}
 
-		$todosLosCursos = Curso::model()->findAll();
-
 		$this->render('create',array(
 			'model'=>$model,
 			'todosLosCursos'=>$todosLosCursos,
             'modelAlumno' => $modelAlumno,
             'listaAlumnos' => $listaAlumnos,
-            'paidAlumnos' => $paidAlumnos,
+            'listaAsistencia' => $listaAsistencia,
 		));
 
 	}
@@ -112,9 +114,7 @@ class ClaseController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
 
 		if(isset($_POST['Clase']))
 		{
@@ -122,8 +122,6 @@ class ClaseController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idClase));
 		}
-
-		$todosLosCursos = Curso::model()->findAll();
 
 		$this->render('update',array(
 			'model'=>$model,

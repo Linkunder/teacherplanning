@@ -10,6 +10,10 @@
 
 ?>
 
+<link href="<?php echo Yii::app()->request->baseUrl;?>/themes/kongoon/assets/css/bootstrap-duallistbox.css" rel="stylesheet" />
+<script src='<?php echo Yii::app()->request->baseUrl;?>/themes/kongoon/assets/js/jquery.bootstrap-duallistbox.js'></script>
+<script src='<?php echo Yii::app()->request->baseUrl;?>/themes/kongoon/assets/js/bootstrap.js'></script>
+
 
 <div class="form">
 
@@ -77,31 +81,38 @@
 	</div>
 
 
-	<!--
-	<script type="text/javascript">
-		$('lista').DualListBox();
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group">
+				<select id="listaAlumnos" name="listaAlumnos[]" multiple="multiple" size="<?= count($listaAlumnos)?>" class="demo2">
+
+					<?php
+					foreach($listaAlumnos[0] as $alumno){
+						?>
+						<option id="no-en-lista" value="<?= $alumno->idAlumno ?>">
+							<?php echo $alumno->nombre." ".$alumno->apellido ?>
+						</option>
+						<?php
+					}
+
+					foreach ($listaAsistencia as $asistio) {
+						?>
+						<option id="en-lista" value="<?= $asistio->idAlumno ?>" disabled selected="selected"> <!-- Estos se van a la segunda lista -->
+							<?php echo $asistio->nombre." ".$asistio->apellido ?>
+						</option>
+						<?php
+					}
+					?>
+
+				</select>
+			</div>
+		</div>
+	</div>
+	<script>
+		var demo1 = $('select[name="listaAlumnos[]"]').bootstrapDualListbox(); // se inicializa en base al name
 	</script>
-	<select id="lista">
-	-->
-	<!--
-	?php
-	$this->widget('ext.DualListBox.DualListBox', array(
-		'model'=>$modelAlumno,
-		'attribute'=>'nombre',
-		'nametitle' => 'Alumno',
-		'data' => $listaAlumnos,  // it will be displyed in available side
-		'selecteddata'=> $paidAlumnos, // it will be displayed in selected side
-		'data_id'=> 'idAlumno',
-		'data_value'=> 'nombre',
-		'lngOptions' => array(
-			'search_placeholder' => 'Buscar Alumno',
-			'showing' => ' - Total',
-			'available' => 'Disponibles',
-			'selected' => 'Seleccionados'
-		)
-	));
-	?>
-	-->
+
+
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
@@ -110,3 +121,16 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+
+
+
+
+<?php
+/*
+echo '<pre>';
+echo print_r($listaAlumnos);
+echo '</pre>';
+*/
+?>
+
