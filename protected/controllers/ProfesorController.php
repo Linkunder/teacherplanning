@@ -4,7 +4,8 @@ class ProfesorController extends Controller
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+		$this->actionAdmin();
+
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -33,4 +34,17 @@ class ProfesorController extends Controller
 		);
 	}
 	*/
+	public function actionAdmin()
+	{
+		$model=new Profesor('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Profesor']))
+			$model->attributes=$_GET['Profesor'];
+
+		//Es profesor
+		$model->perfil = 0;
+		$this->render('admin',array(
+			'model'=>$model,
+			));
+	}
 }

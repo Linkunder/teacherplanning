@@ -3,8 +3,8 @@
 /* @var $model Profesor */
 
 $this->breadcrumbs=array(
-	'Profesors'=>array('index'),
-	'Manage',
+	'Profesores'=>array('index'),
+
 );
 
 $this->menu=array(
@@ -26,21 +26,24 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Profesors</h1>
+<h1>Profesores</h1>
 
 <p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+Opcionalmente puedes ingresar un operador de comparación (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+or <b>=</b>) al inicio de cada uno de los valores de busqueda para especificar que comparación debe hacerse.
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Busqueda Avanzada','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+
+
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'profesor-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -50,12 +53,24 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'apellido',
 		'rut',
 		'mail',
-		'password',
+		array(
+				'header'=>'Cursos',
+				'name'=>'idProfesor',
+				'value'=>function($data, $row) use (&$model){
+					 $result = count((Array)(Curso::model()->findAllByAttributes(array('idProfesor' => $data->idProfesor,))));
+					 return ''.$result;
+				},
+				
+				
+
+		),
+
 		/*
 		'perfil',
-		*/
+		
 		array(
 			'class'=>'CButtonColumn',
 		),
+		*/
 	),
 )); ?>
