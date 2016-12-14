@@ -48,7 +48,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'idProfesor',
 		'nombre',
 		'apellido',
 		'rut',
@@ -72,5 +71,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'class'=>'CButtonColumn',
 		),
 		*/
+
+		                'link'=>array(
+                        'header'=>'',
+                        'type'=>'raw',
+                        'value'=> 'CHtml::button("Plan",array("onclick"=>""))',
+                ), 
 	),
 )); ?>
