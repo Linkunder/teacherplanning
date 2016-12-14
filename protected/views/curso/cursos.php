@@ -49,6 +49,20 @@ $this->breadcrumbs=array(
  <?php }
  ?>
 
+ <?php if($alerta==7){ ?>
+  <div class="alert alert-success">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>Listo!</strong> Se ha ingresado el alumno al curso.
+ </div>
+ <?php }
+ if($alerta == 8){ ?>
+ <div class="alert alert-danger">
+   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+   <strong>ups!</strong> No se ha podido ingresar el alumno al curso.
+ </div>
+ <?php }
+ ?>
+
 
 
 
@@ -220,11 +234,22 @@ $this->breadcrumbs=array(
     </div>
 
 
+    <div id="nuevoAlumno" class="modal fade" role="dialog">
+      <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Nuevo alumno</h4>
+          </div>
+          <div class="modal-body">
+            <?php $this->renderPartial('_formAlumno', array('modelAlumno'=>$modelAlumno,));?>
+          </div>
+        </div>
 
-
-
-
+      </div>
+    </div>
 
 
 
@@ -284,6 +309,14 @@ $this->breadcrumbs=array(
       $('#nuevoCurso').on('show.bs.modal', function (e){
         document.getElementsByName("Curso[idProfesor]")[0].setAttribute("value", idProfesor);
       });
+
+
+      // Nuevo alumno a un curso.
+      $('#nuevoAlumno').on('show.bs.modal', function (e){
+        document.getElementsByName("Alumno[idCurso]")[0].setAttribute("value", idCurso);
+      });
+
+
 
     </script>
 

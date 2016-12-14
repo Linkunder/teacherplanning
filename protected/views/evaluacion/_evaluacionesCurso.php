@@ -23,10 +23,6 @@ if (!empty($evaluacionesCurso)){
 
                         <table class="table ">
                             <tr>
-                                <td>ID</td>
-                                <td><?= $idEvaluacion?></td>
-                            </tr>
-                            <tr>
                                 <td width="20%">Descripción</td>
                                 <td><?= $evaluacion->descripcion ?></td>
                             </tr>
@@ -47,7 +43,14 @@ if (!empty($evaluacionesCurso)){
                                         </button>
                                     </center>
                                 </td>
-                                <td></td>
+                                <td>
+                                    <center>
+                                        <button id="<?php echo $idEvaluacion;?>" class="btn btn-sm btn-warning rb" data-toggle="modal" data-target="#modalEditarNotas" data-id="<?php echo $idEvaluacion;?>" >
+                                            Editar notas 
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        </button>
+                                    </center>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -87,4 +90,10 @@ if (!empty($evaluacionesCurso)){
                 $('#agregarNotas').load('index.php?r=evaluacion/partialAgregarNotas&idEvaluacion='+ idEvaluacion);
             });
 
+
+            // 
+            $('#modalEditarNotas').on('show.bs.modal', function (e){
+                $('#modalEvaluaciones').modal('hide');
+                $('#editarNotas').load('index.php?r=evaluacion/partialEditarNotas&idEvaluacion='+ idEvaluacion);
+            });
         </script>

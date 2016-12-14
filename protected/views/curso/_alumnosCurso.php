@@ -20,15 +20,15 @@
       	<br/>
       	<div class="row">
       		<div class="col-md-4">
-      			<center><button class="btn btn-sm btn-primary cp" data-toggle="modal" data-target="#modalAlumno">
-      				Agregar nuevo alumno <span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
-      			</center>
-      		</div>
-      	</div>
+      			<center><button id="<?php echo $idCurso;?>" class="btn btn-sm btn-primary nc" data-toggle="modal" data-target="#nuevoAlumno" data-id="<?php echo $idCurso;?>">
+                              Agregar nuevo alumno <span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
+                        </center>
+                  </div>
+            </div>
 
-      	<br/>
+            <br/>
 
-      	<?php
+            <?php
       } else {
       	?>
 
@@ -85,7 +85,7 @@
 
       		<div class="row">
       			<div class="col-md-4">
-      				<center><button class="btn btn-sm btn-primary cp" data-toggle="modal" data-target="#modalAlumno">
+      				<center><button id="<?php echo $idCurso;?>" class="btn btn-sm btn-primary nc" data-toggle="modal" data-target="#nuevoAlumno" data-id="<?php echo $idCurso;?>">
       					Agregar nuevo alumno <span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
       				</center>
       			</div>
@@ -122,7 +122,26 @@
 
 
 
+            <!-- Modal para Editar notas -->
+            <div id="modalEditarNotas" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-lg">
 
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                              <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Editar calificaciones</h4>
+                              </div>
+                              <div class="modal-body">
+                                    <div id="editarNotas">
+
+                                    </div>
+                              </div>
+                              
+                        </div>
+
+                  </div>
+            </div>
 
 
 

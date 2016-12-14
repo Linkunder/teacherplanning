@@ -56,7 +56,15 @@ class EvaluacionController extends Controller
 				'users'=>array('*'),
 				),
 			array('allow', 
+				'actions'=>array('_notas','partialEditarNotas'),
+				'users'=>array('*'),
+				),
+			array('allow', 
 				'actions'=>array('_notas','registrarNotas'),
+				'users'=>array('*'),
+				),
+			array('allow', 
+				'actions'=>array('_notas','actualizarNotas'),
 				'users'=>array('*'),
 				),
 			array('allow', 
@@ -87,14 +95,21 @@ class EvaluacionController extends Controller
 
 	public function actionPartialEvaluaciones(){
 		$idCurso = $_GET['idCurso'];
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
 		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
 		$notasCurso = array();
+		$notasAlumno = array();
+		$promedios = array();
 		foreach ($evaluacionesCurso as $key ) {
 			$idEvaluacion = $key->idEvaluacion;
 			// Traer notas por EVALUACIÓN. 
 			$notasCurso[$idEvaluacion] = AlumnoRindeEvaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+			foreach ($notasCurso[$idEvaluacion] as $key) {
+				$notasAlumno[$key->idAlumno][$idEvaluacion] = $key->nota;
+				
+			}
 		}
-		$this->renderPartial('_notasParciales', array('evaluacionesCurso'=>$evaluacionesCurso,'notasCurso'=>$notasCurso ));
+		$this->renderPartial('_notasParciales', array('evaluacionesCurso'=>$evaluacionesCurso,'notasCurso'=>$notasCurso , 'alumnosCurso'=>$alumnosCurso,'notasAlumno'=>$notasAlumno,'promedios'=>$promedios, ));
 	}
 
 
@@ -112,6 +127,15 @@ class EvaluacionController extends Controller
 		$this->renderPartial('_agregarNotas', array('evaluacion'=>$evaluacion,'alumnosCurso'=>$alumnosCurso  ));
 	}
 
+	public function actionpartialEditarNotas(){
+		$idEvaluacion = $_GET['idEvaluacion'];
+		$evaluacion = Evaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		$idCurso = end($evaluacion)->idCurso;
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		$notas = Alumnorindeevaluacion::model()->findAllByAttributes(array('idEvaluacion'=>$idEvaluacion,));
+		$this->renderPartial('_editarNotas', array('evaluacion'=>$evaluacion,'alumnosCurso'=>$alumnosCurso ,'notas'=>$notas, ));
+	}	
+
 	public function actionregistrarNotas(){
 		$idEvaluacion = $_POST['idEvaluacion'];
 		$evaluacion = Evaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
@@ -121,7 +145,9 @@ class EvaluacionController extends Controller
 			$model = new Alumnorindeevaluacion;
 			$notaAlumno = $_POST['notaAlumno'.$key->idAlumno];
 			$idAlumno = $key->idAlumno;
-
+			if ($notaAlumno==""){
+				$notaAlumno = 1;
+			}
 			$model->idAlumno = $idAlumno;
 			$model->idEvaluacion = $idEvaluacion;
 			$model->nota = $notaAlumno;
@@ -131,6 +157,33 @@ class EvaluacionController extends Controller
 	}
 
 
+	public function actionactualizarNotas(){
+		$idEvaluacion = $_POST['idEvaluacion'];
+		$evaluacion = Evaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
+		$idCurso = end($evaluacion)->idCurso;
+		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+		foreach ($alumnosCurso as $key) {
+			//$model = new Alumnorindeevaluacion;
+			$idAlumno = $key->idAlumno;
+			$model = Alumnorindeevaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, 'idAlumno'=>$idAlumno,));
+			foreach ($model as $key ){
+				if ($key->idAlumno == $idAlumno) {
+					$notaAlumno = $_POST['notaAlumno'.$key->idAlumno];
+					$key->nota = $notaAlumno;
+				} 
+				$key->update();
+			}
+
+			//$model->nota =$notaAlumno;
+			/*
+			
+			$model->idAlumno = $idAlumno;
+			$model->idEvaluacion = $idEvaluacion;
+			$model->nota = $notaAlumno;*/
+			//$model->update();
+		}
+		header('Location:?r=curso/cursos');		
+	}
 
 
 

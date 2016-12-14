@@ -71,8 +71,11 @@ class AlumnoController extends Controller
 		if(isset($_POST['Alumno']))
 		{
 			$model->attributes=$_POST['Alumno'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idAlumno));
+			if($model->save()){
+				header('Location:?r=curso/cursos&modal=7');
+			} else {
+				header('Location:?r=curso/cursos&modal=8');
+			}
 		}
 
 		// *** se debe listar solo los cursos que posee ese profesor el cual esta creando el curso y logeado
