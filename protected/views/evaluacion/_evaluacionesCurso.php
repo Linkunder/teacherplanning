@@ -87,6 +87,7 @@ if (!empty($evaluacionesCurso)){
             // Ver evaluaciones del curso. (para luego agregar las notas de una evaluación)
             $('#modalAgregarNotas').on('show.bs.modal', function (e){
                 $('#modalEvaluaciones').modal('hide');
+                $('.modal-backdrop').remove();
                 $('#agregarNotas').load('index.php?r=evaluacion/partialAgregarNotas&idEvaluacion='+ idEvaluacion);
             });
 
@@ -94,6 +95,8 @@ if (!empty($evaluacionesCurso)){
             // 
             $('#modalEditarNotas').on('show.bs.modal', function (e){
                 $('#modalEvaluaciones').modal('hide');
+                $('.modal-backdrop').remove();
+
                 $('#editarNotas').load('index.php?r=evaluacion/partialEditarNotas&idEvaluacion='+ idEvaluacion);
             });
         </script>

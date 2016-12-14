@@ -99,17 +99,16 @@ class EvaluacionController extends Controller
 		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
 		$notasCurso = array();
 		$notasAlumno = array();
-		$promedios = array();
 		foreach ($evaluacionesCurso as $key ) {
 			$idEvaluacion = $key->idEvaluacion;
 			// Traer notas por EVALUACIÓN. 
 			$notasCurso[$idEvaluacion] = AlumnoRindeEvaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
 			foreach ($notasCurso[$idEvaluacion] as $key) {
 				$notasAlumno[$key->idAlumno][$idEvaluacion] = $key->nota;
-				
 			}
+
 		}
-		$this->renderPartial('_notasParciales', array('evaluacionesCurso'=>$evaluacionesCurso,'notasCurso'=>$notasCurso , 'alumnosCurso'=>$alumnosCurso,'notasAlumno'=>$notasAlumno,'promedios'=>$promedios, ));
+		$this->renderPartial('_notasParciales', array('evaluacionesCurso'=>$evaluacionesCurso,'notasCurso'=>$notasCurso , 'alumnosCurso'=>$alumnosCurso,'notasAlumno'=>$notasAlumno, ));
 	}
 
 
