@@ -10,7 +10,8 @@
  * @property string $rut
  * @property string $mail
  * @property string $password
- * @property string $perfil
+ * @property integer $perfil
+ * @property integer $itsfree
  *
  * The followings are the available model relations:
  * @property Curso[] $cursos
@@ -33,12 +34,13 @@ class Profesor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('perfil', 'required'),
-			array('nombre, apellido, rut, mail, perfil', 'length', 'max'=>45),
+			array('perfil, itsfree', 'required'),
+			array('perfil, itsfree', 'numerical', 'integerOnly'=>true),
+			array('nombre, apellido, rut, mail', 'length', 'max'=>45),
 			array('password', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('idProfesor, nombre, apellido, rut, mail, password, perfil', 'safe', 'on'=>'search'),
+			array('idProfesor, nombre, apellido, rut, mail, password, perfil, itsfree', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,6 +69,7 @@ class Profesor extends CActiveRecord
 			'mail' => 'Mail',
 			'password' => 'Password',
 			'perfil' => 'Perfil',
+			'itsfree' => 'Itsfree',
 		);
 	}
 
@@ -94,7 +97,8 @@ class Profesor extends CActiveRecord
 		$criteria->compare('rut',$this->rut,true);
 		$criteria->compare('mail',$this->mail,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('perfil',$this->perfil,true);
+		$criteria->compare('perfil',$this->perfil);
+		$criteria->compare('itsfree',$this->itsfree);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
