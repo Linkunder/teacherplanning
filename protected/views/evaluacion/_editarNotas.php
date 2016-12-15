@@ -21,7 +21,7 @@
                         foreach ($notas as $key) {
                         	if ($key->idAlumno == $idAlumno){
                         ?>
-                        <input type="number" name="notaAlumno<?php echo $key->idAlumno?>" min="1" max="7" value="<?php echo $key->nota?>" >    
+                        <input type="number" name="notaAlumno<?php echo $key->idAlumno?>" min="1" max="7" value="<?php echo $key->nota?>" step="0.1" >    
                         <?php
                     		}
                     	}
@@ -39,7 +39,7 @@
 
 <div class="modal-footer">
       <button type="submit" class="btn btn-primary">
-            Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Listo <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
       </button>
 </div>
 

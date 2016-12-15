@@ -1,12 +1,12 @@
 <?php
 
 /**
- * This is the model class for table "alumnorindeevaluacion".
+ * This is the model class for table "AlumnoRindeEvaluacion".
  *
- * The followings are the available columns in table 'alumnorindeevaluacion':
+ * The followings are the available columns in table 'AlumnoRindeEvaluacion':
  * @property integer $idAlumno
  * @property integer $idEvaluacion
- * @property integer $nota
+ * @property double $nota
  */
 class Alumnorindeevaluacion extends CActiveRecord
 {
@@ -27,7 +27,8 @@ class Alumnorindeevaluacion extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('idAlumno, idEvaluacion', 'required'),
-			array('idAlumno, idEvaluacion, nota', 'numerical', 'integerOnly'=>true),
+			array('idAlumno, idEvaluacion', 'numerical', 'integerOnly'=>true),
+			array('nota', 'numerical'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('idAlumno, idEvaluacion, nota', 'safe', 'on'=>'search'),

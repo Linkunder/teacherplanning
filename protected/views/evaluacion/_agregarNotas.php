@@ -18,7 +18,7 @@
                   <td>
 
                         
-                        <input type="number" name="notaAlumno<?php echo $key->idAlumno?>" min="1" max="7" >    
+                        <input type="number" name="notaAlumno<?php echo $key->idAlumno?>" min="1" max="7" step="0.1" >    
 
 
                   </td>
@@ -34,8 +34,16 @@
 <input name="numeroAlumnos" value="<?php echo $contador?>" hidden >
 <div class="modal-footer">
       <button type="submit" class="btn btn-primary">
-            Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Listo <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
       </button>
 </div>
 
 </form>
+
+<script type="text/javascript">
+
+
+
+
+
+</script>

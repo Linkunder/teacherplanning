@@ -87,9 +87,9 @@ class AnotacionController extends Controller
 				}
 			}else{
 				if($model->save()){
-					header('Location:?r=anotacion/prueba&modal=1');
+					header('Location:?r=curso/cursos&modal=1');
 				}else{
-					header('Location:?r=anotacion/prueba&modal=2');
+					header('Location:?r=curso/cursos&modal=2');
 				}
 			}
 		}

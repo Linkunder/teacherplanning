@@ -21,8 +21,8 @@ $this->breadcrumbs=array(
  ?>
 
 
-<?php if($alerta==3){ ?>
-  <div class="alert alert-success">
+ <?php if($alerta==3){ ?>
+ <div class="alert alert-success">
    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
    <strong>Listo!</strong> Se ha ingresado el curso.
  </div>
@@ -35,8 +35,8 @@ $this->breadcrumbs=array(
  <?php }
  ?>
 
-<?php if($alerta==5){ ?>
-  <div class="alert alert-success">
+ <?php if($alerta==5){ ?>
+ <div class="alert alert-success">
    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
    <strong>Listo!</strong> Se ha ingresado la evaluación.
  </div>
@@ -50,7 +50,7 @@ $this->breadcrumbs=array(
  ?>
 
  <?php if($alerta==7){ ?>
-  <div class="alert alert-success">
+ <div class="alert alert-success">
    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
    <strong>Listo!</strong> Se ha ingresado el alumno al curso.
  </div>
@@ -78,8 +78,19 @@ $this->breadcrumbs=array(
      administrar, puedes agregar alumnos, una vez hecho esto, puedes ver sus notas parciales y agregar una evaluación con las notas
      de tus alumnos</p>
 
-     <!--Acordion que despliega los cursos del profesor (avance 1 = idProfesor = 1 )-->
-     <div class="panel-group" id="accordion">
+     <?php
+     if (empty($todosLosCursos)){
+      ?>
+      <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Ups!</strong> No tienes cursos asociados.
+      </div>
+      <?php
+    } 
+    ?>
+
+    <!--Acordion que despliega los cursos del profesor (avance 1 = idProfesor = 1 )-->
+    <div class="panel-group" id="accordion">
       <?php foreach($todosLosCursos AS $curso){?>
       <div class="panel panel-default" id="panel<?php echo $curso->idCurso;?>">
         <div class="panel-heading">

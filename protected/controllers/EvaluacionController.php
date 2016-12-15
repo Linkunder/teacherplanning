@@ -115,6 +115,7 @@ class EvaluacionController extends Controller
 	public function actionpartialEvaluar(){
 		$idCurso = $_GET['idCurso'];
 		$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+
 		$this->renderPartial('_evaluacionesCurso', array('evaluacionesCurso'=>$evaluacionesCurso,));
 	}
 
@@ -123,7 +124,7 @@ class EvaluacionController extends Controller
 		$evaluacion = Evaluacion::model()->findAllByAttributes(array('idEvaluacion' => $idEvaluacion, ));
 		$idCurso = end($evaluacion)->idCurso;
 		$alumnosCurso = Alumno::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
-		$this->renderPartial('_agregarNotas', array('evaluacion'=>$evaluacion,'alumnosCurso'=>$alumnosCurso  ));
+		$this->renderPartial('_agregarNotas', array('evaluacion'=>$evaluacion,'alumnosCurso'=>$alumnosCurso,  ));
 	}
 
 	public function actionpartialEditarNotas(){

@@ -45,7 +45,7 @@ if (!empty($evaluacionesCurso)){
                                 </td>
                                 <td>
                                     <center>
-                                        <button id="<?php echo $idEvaluacion;?>" class="btn btn-sm btn-warning rb" data-toggle="modal" data-target="#modalEditarNotas" data-id="<?php echo $idEvaluacion;?>" >
+                                        <button id="<?php echo $idEvaluacion;?>" class="btn btn-sm btn-warning rb"                data-toggle="modal" data-target="#modalEditarNotas"  data-id="<?php echo $idEvaluacion;?>" >
                                             Editar notas 
                                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                         </button>
@@ -77,26 +77,27 @@ if (!empty($evaluacionesCurso)){
 
 
         <script>
-            //var idEvaluacion = 1;
+            var idEvaluacion;
 
             $('.rb').click(function (e){
                 e.preventDefault();
                 idEvaluacion = $(this).data('id'); 
-            });
 
+
+                
+            });
             // Ver evaluaciones del curso. (para luego agregar las notas de una evaluación)
-            $('#modalAgregarNotas').on('show.bs.modal', function (e){
+            $('#modalAgregarNotas').on('show.bs.modal', function (){
                 $('#modalEvaluaciones').modal('hide');
-                $('.modal-backdrop').remove();
                 $('#agregarNotas').load('index.php?r=evaluacion/partialAgregarNotas&idEvaluacion='+ idEvaluacion);
             });
 
 
             // 
-            $('#modalEditarNotas').on('show.bs.modal', function (e){
+            $('#modalEditarNotas').on('show.bs.modal', function (){
                 $('#modalEvaluaciones').modal('hide');
-                $('.modal-backdrop').remove();
-
                 $('#editarNotas').load('index.php?r=evaluacion/partialEditarNotas&idEvaluacion='+ idEvaluacion);
             });
+
+
         </script>

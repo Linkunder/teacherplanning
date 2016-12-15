@@ -91,7 +91,7 @@
 
 	<input type="number" name="modal" value="1" hidden />
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($modelEvaluacion->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($modelEvaluacion->isNewRecord ? 'Listo' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -55,6 +55,14 @@
       		</div>
       	</div>
       	<br/>
+
+
+
+
+
+
+
+            <div id="dvData">
       	<table id="myTable<?php echo $idCurso?>" class="table table-bordered table-striped table-hover table-responsive">
       		<thead>
       			<tr>
@@ -80,15 +88,33 @@
       					}
       				}
       				?>
-      			</tbody>
-      		</table>
+      		</tbody>
+      	</table>
+            </div>
 
+
+
+                  
+
+             
       		<div class="row">
       			<div class="col-md-4">
       				<center><button id="<?php echo $idCurso;?>" class="btn btn-sm btn-primary nc" data-toggle="modal" data-target="#nuevoAlumno" data-id="<?php echo $idCurso;?>">
       					Agregar nuevo alumno <span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
       				</center>
       			</div>
+                        <div class="col-md-4">
+                              <center>
+
+                              <!--input type="button" id="btnExport" class="btn btn-sm btn-success" 
+                              value="Exportar alumnos a Excel"/-->
+                              <button  id="btnExport" class="btn btn-sm btn-success">
+                                    Exportar alumnos a Excel <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                              </button>
+                              
+
+                              </center>
+                        </div>
       		</div>
 
       		<?php
@@ -149,4 +175,10 @@
 
 
 
+<script>
+    $("#btnExport").click(function(e) {
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#dvData').html()));
+        e.preventDefault();
+    });
+    </script>
 

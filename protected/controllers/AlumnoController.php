@@ -16,7 +16,7 @@ class AlumnoController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-		);
+			);
 	}
 
 	/**
@@ -30,20 +30,20 @@ class AlumnoController extends Controller
 			array('allow',  // allow authenticated users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
 				'users'=>array('@'),
-			),
+				),
             /*
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
 				'users'=>array('@'),
-			),*/
+				),*/
 			array('allow', // allow profesors user to perform 'admin' and 'delete' actions
 				'actions'=>array('create','update','admin','delete'),
 				'users'=>array('profesor'),
-			),
+				),
 			array('deny',  // deny all users
 				'users'=>array('*'),
-			),
-		);
+				),
+			);
 	}
 
 	/**
@@ -54,7 +54,7 @@ class AlumnoController extends Controller
 	{
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
-		));
+			));
 	}
 
 	/**
@@ -71,7 +71,23 @@ class AlumnoController extends Controller
 		if(isset($_POST['Alumno']))
 		{
 			$model->attributes=$_POST['Alumno'];
+
+
+
 			if($model->save()){
+				$idAlumno =  $model->idAlumno;
+				$idCurso = $model->idCurso;
+				$evaluacionesCurso = Evaluacion::model()->findAllByAttributes(array('idCurso' => $idCurso, ));
+				if (!empty($evaluacionesCurso)){
+					foreach ($evaluacionesCurso as $eval) {
+						$model2 = new Alumnorindeevaluacion;
+						$notaAlumno = 1;
+						$model2->idAlumno = $idAlumno;
+						$model2->idEvaluacion = $eval->idEvaluacion;
+						$model2->nota = $notaAlumno;
+						$model2->save();
+					}
+				}
 				header('Location:?r=curso/cursos&modal=7');
 			} else {
 				header('Location:?r=curso/cursos&modal=8');
@@ -79,12 +95,12 @@ class AlumnoController extends Controller
 		}
 
 		// *** se debe listar solo los cursos que posee ese profesor el cual esta creando el curso y logeado
-        $todosLosCursos = Curso::model()->findAll();
+		$todosLosCursos = Curso::model()->findAll();
 
 		$this->render('create',array(
 			'model'=> $model,
-            'todosLosCursos' => $todosLosCursos,
-		));
+			'todosLosCursos' => $todosLosCursos,
+			));
 	}
 
 	/**
@@ -107,12 +123,12 @@ class AlumnoController extends Controller
 		}
 
         // *** se debe listar solo los cursos que posee ese profesor el cual esta creando el curso y logeado
-        $todosLosCursos = Curso::model()->findAll();
+		$todosLosCursos = Curso::model()->findAll();
 
 		$this->render('update',array(
 			'model'=>$model,
-            'todosLosCursos' => $todosLosCursos,
-		));
+			'todosLosCursos' => $todosLosCursos,
+			));
 	}
 
 	/**
@@ -134,13 +150,13 @@ class AlumnoController extends Controller
 	 */
 	public function actionIndex()
 	{
-	    $user= Yii::app()->user;
+		$user= Yii::app()->user;
 
 		$dataProvider=new CActiveDataProvider('Alumno');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-            'user' => $user,
-		));
+			'user' => $user,
+			));
 	}
 
 	/**
@@ -155,7 +171,7 @@ class AlumnoController extends Controller
 
 		$this->render('admin',array(
 			'model'=>$model,
-		));
+			));
 	}
 
 	/**

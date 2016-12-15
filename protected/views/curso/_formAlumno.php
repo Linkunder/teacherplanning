@@ -70,7 +70,7 @@
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($modelAlumno->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($modelAlumno->isNewRecord ? 'Listo' : 'Save'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
