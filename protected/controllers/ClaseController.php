@@ -104,7 +104,7 @@ class ClaseController extends Controller
                     }
                 }
 
-                $this->redirect(array('view','id'=>$model->idClase));
+                $this->redirect(array('index'));
             }
 		}
 
@@ -187,7 +187,7 @@ class ClaseController extends Controller
                     }
                 }
 
-                $this->redirect(array('view','id'=>$model->idClase));
+                $this->redirect(array('index'));
             }
 		}
 
