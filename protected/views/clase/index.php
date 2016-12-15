@@ -35,11 +35,16 @@ $this->menu=array(
 			</h4>
 		</div>
 		<div id="collapse<?=$indice?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?=$indice?>">
+			<form action="index.php?r=clase/create" method="post">
+				<input hidden type="number" name="idCurso" value="<?= $idCursos[$indice]?>">
+				<button type="submit" class="btn btn-md btn-success" href="#">Crear Clase</button>
+			</form>
 
 			<table class="table table-bordered table-responsive">
 				<tr class="bg-primary">
 					<th>Fecha</th>
 					<th>Descripción</th>
+					<th></th>
 				</tr>
 
 				<tbody>
@@ -49,6 +54,12 @@ $this->menu=array(
 					<tr>
 						<td><?= $clase[$i]->fecha ?></td>
 						<td><?= $clase[$i]->descripcion ?></td>
+						<td>
+							<form action="index.php?r=clase/update&id=<?= $clase[$i]->idClase ?>" method="post">
+								<input hidden type="number" name="idCurso" value="<?= $idCursos[$indice]?>">
+								<button type="submit" class="btn btn-primary" href="#">Editar Clase</button>
+							</form>
+						</td>
 					</tr>
 					<?php
 				}

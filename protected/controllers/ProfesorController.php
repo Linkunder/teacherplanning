@@ -23,4 +23,26 @@ class ProfesorController extends Controller
 			'model'=>$model,
 			));
 	}
+
+    /*
+    public function actionCreate(){
+        $model = new Profesor;
+
+        if(isset($_POST['Profesor'])) {
+            $model->attributes=$_POST['Profesor'];
+            $model->perfil = 0;
+            $model->itsfree = 0;
+            $model->save();
+
+            if($model->save())
+                $this->redirect(array('view','id'=>$model->idHorario));
+
+        }
+
+        $this->render('create',array(
+            'model'=> $model,
+        ));
+    }
+    */
+
 }

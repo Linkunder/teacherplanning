@@ -66,14 +66,28 @@ class ClaseController extends Controller
 		$model = new Clase;
         $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
 
-        /**** DUAL-LIST-BOX */
+        if(isset($_POST['idCurso'])) {
+            $idCurso = $_POST['idCurso'];
+
+            $listaAlumnos = [];
+            $listaAsistencia = [];
+            $alumnosCurso = Alumno::model()->findAllByAttributes(['idCurso' => $idCurso]);
+            foreach ($alumnosCurso as $alumno) {
+                array_push($listaAlumnos, $alumno);
+            }
+        }
+
+        /* *** DUAL-LIST-BOX *
         $listaAlumnos = [];
         $listaAsistencia = []; // inicialmente vacia porque creamos un curso y no se ha pasado lista
 
         foreach ($todosLosCursos as $curso){
-            array_push($listaAlumnos, Alumno::model()->findAllByAttributes(['idCurso' => $curso->idCurso]));
+            $alumnosCurso = Alumno::model()->findAllByAttributes(['idCurso' => $curso->idCurso]);
+            foreach ($alumnosCurso as $alumno){
+                array_push($listaAlumnos, $alumno);
+            }
         }
-        /**** FIN DUAL-LIST-BOX */
+        **** FIN DUAL-LIST-BOX */
 
 		if(isset($_POST['Clase'])) {
 			$model->attributes=$_POST['Clase'];
@@ -99,6 +113,7 @@ class ClaseController extends Controller
 			'todosLosCursos'=>$todosLosCursos,
             'listaAlumnos' => $listaAlumnos,
             'listaAsistencia' => $listaAsistencia,
+            'idCurso' => $idCurso,
 		));
 
 	}
@@ -110,17 +125,78 @@ class ClaseController extends Controller
 	 */
 	public function actionUpdate($id){
 		$model=$this->loadModel($id);
-        $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
+        $idProfesor = Yii::app()->user->getState('usuario')->idProfesor;
+        $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => $idProfesor]);
+
+        //$cursos = Yii::app()->db->createCommand("SELECT count(*) as cantidad FROM Curso WHERE idProfesor = '$idProfesor'")->queryAll();
+
+        /**** DUAL-LIST-BOX */
+        $idAlumnosAsistencia = Asistencia::model()->findAllByAttributes(['idClase' => $id]);
+
+        if(isset($_POST['idCurso'])) {
+            $idCurso = $_POST['idCurso'];
+
+            $alumnos = [];
+            $alumnosNoAsistieron = Yii::app()->db->createCommand("select idAlumno from Alumno where idCurso='$idCurso' and idAlumno not in(SELECT j.idAlumno
+                                                            FROM Alumno i, Asistencia j
+                                                            WHERE i.idAlumno = j.idAlumno and j.idClase = '$id')")->queryAll();
+            foreach ($alumnosNoAsistieron as $alumnoNoAsistio) {
+                array_push($alumnos, $alumnoNoAsistio);
+            }
+
+            $listaAlumnos = [];
+            foreach ($alumnos as $alumno) {
+                array_push($listaAlumnos, Alumno::model()->findByAttributes(['idAlumno' => $alumno]));
+            }
+        }
+        /*
+        $alumnos = [];
+        foreach ($todosLosCursos as $curso){
+            $alumnosNoAsistieron = Yii::app()->db->createCommand("select idAlumno from Alumno where idCurso='$curso->idCurso' and idAlumno not in(SELECT j.idAlumno
+                                                                    FROM Alumno i, Asistencia j
+                                                                    WHERE i.idAlumno = j.idAlumno and j.idClase = '$id')")->queryAll();
+            foreach ($alumnosNoAsistieron as $alumnoNoAsistio){
+                array_push($alumnos, $alumnoNoAsistio);
+            }
+        }
+        $listaAlumnos = [];
+        foreach ($alumnos as $alumno){
+            array_push($listaAlumnos, Alumno::model()->findByAttributes(['idAlumno' => $alumno]));
+        }
+        */
+
+        $listaAsistencia = [];
+        foreach ($idAlumnosAsistencia as $alumnoAsiste){
+            array_push($listaAsistencia, Alumno::model()->findByAttributes(['idAlumno' => $alumnoAsiste->idAlumno]));
+        }
+        /**** FIN DUAL-LIST-BOX */
 
 		if(isset($_POST['Clase'])) {
 			$model->attributes=$_POST['Clase'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idClase));
+			if($model->save()) {
+
+                if (isset($_POST["listaAsistencia"])){
+                    $alumnos = $_POST["listaAsistencia"];
+                    // guardamos la lista actualizada con los nuevos participantes
+                    for ($i=0; $i<count($alumnos) ; $i++) {
+                        $asistencia = new Asistencia();
+                        $idAlumno = $alumnos[$i];
+                        $asistencia->idClase = $model->idClase;
+                        $asistencia->idAlumno = $idAlumno;
+                        $asistencia->save();
+                    }
+                }
+
+                $this->redirect(array('view','id'=>$model->idClase));
+            }
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
-			'todosLosCursos'=>$todosLosCursos
+			'todosLosCursos'=>$todosLosCursos,
+            'listaAlumnos' => $listaAlumnos,
+            'listaAsistencia' => $listaAsistencia,
+            'idCurso' => $idCurso,
 		));
 	}
 
@@ -145,11 +221,13 @@ class ClaseController extends Controller
 	{
         $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
         $clasesPorCurso = [];
+        $idCursos =[];
         $nombreCursos = [];
         foreach ($todosLosCursos as $curso){
             array_push($nombreCursos, $curso->nombre);
             $clases = Clase::model()->findAllByAttributes(['idCurso' => $curso->idCurso]);
             array_push($clasesPorCurso, $clases);
+            array_push($idCursos, $curso->idCurso);
         }
 
 		$dataProvider=new CActiveDataProvider('Clase');
@@ -158,6 +236,7 @@ class ClaseController extends Controller
             'todosLosCursos' => $todosLosCursos,
             'clasesPorCurso' => $clasesPorCurso,
             'nombreCursos' => $nombreCursos,
+            'idCursos' => $idCursos,
 		));
 	}
 
