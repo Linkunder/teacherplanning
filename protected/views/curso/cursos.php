@@ -356,40 +356,40 @@ $this->breadcrumbs=array(
 
 
       // Anotaciones 
-      $('#myModal').on('show.bs.modal', function (e){
+      $('#myModal').on('show.bs.modal', function (){
       	$('#anotaciones').load('index.php?r=anotacion/partialAnotaciones&idAlumno='+ idAlumno);
       });
 
-      $('#modalAgregar').on('show.bs.modal', function (e){
+      $('#modalAgregar').on('show.bs.modal', function (){
       	document.getElementsByName("Anotacion[idAlumno]")[0].setAttribute("value", idAlumno);
       });
       // Fin anotaciones
 
 
       // Notas parciales.
-      $('#modalNotas').on('show.bs.modal', function (e){
+      $('#modalNotas').on('show.bs.modal', function (){
         $('#notas').load('index.php?r=evaluacion/partialEvaluaciones&idCurso='+ idCurso);
       });
 
       // Agregar una evaluación.
-      $('#modalEvaluacion').on('show.bs.modal', function (e){
+      $('#modalEvaluacion').on('show.bs.modal', function (){
         document.getElementsByName("Evaluacion[idCurso]")[0].setAttribute("value", idCurso);
       });
 
       // Ver evaluaciones del curso. (para luego agregar las notas de una evaluación)
-      $('#modalEvaluaciones').on('show.bs.modal', function (e){
+      $('#modalEvaluaciones').on('show.bs.modal', function (){
         $('#evaluaciones').load('index.php?r=evaluacion/partialEvaluar&idCurso='+ idCurso);
       });
 
 
       // Agregar un curso.
-      $('#nuevoCurso').on('show.bs.modal', function (e){
+      $('#nuevoCurso').on('show.bs.modal', function (){
         document.getElementsByName("Curso[idProfesor]")[0].setAttribute("value", idProfesor);
       });
 
 
       // Nuevo alumno a un curso.
-      $('#nuevoAlumno').on('show.bs.modal', function (e){
+      $('#nuevoAlumno').on('show.bs.modal', function (){
         document.getElementsByName("Alumno[idCurso]")[0].setAttribute("value", idCurso);
       });
 

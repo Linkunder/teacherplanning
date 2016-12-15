@@ -6,7 +6,7 @@ class ClaseController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -37,9 +37,13 @@ class ClaseController extends Controller
 				'users'=>array('@'),
 			),*/
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('index','view','create','update','delete'),
 				'users'=>array('profesor'),
 			),
+            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                'actions'=>array('view','update','admin','delete'),
+                'users'=>array('super'),
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

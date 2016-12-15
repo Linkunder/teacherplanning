@@ -127,18 +127,19 @@ $cs
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUDS<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><?php echo CHtml::link('Curso',array('/curso'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Horario',array('/horario'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Alumno',array('/alumno'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Anotación',array('/anotacion'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Profesor',array('/profesor'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Clase',array('/clase'),array('class'=>'btn_registro')); ?></li>
-                  <li><?php echo CHtml::link('Evaluación',array('/evaluacion'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Curso',array('/curso/admin'),array('class'=>'btn_registro')); ?></li>
+                  <!--<li>?php echo CHtml::link('Horario',array('/horario/admin'),array('class'=>'btn_registro')); ?></li>-->
+                  <li><?php echo CHtml::link('Alumno',array('/alumno/admin'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Anotación',array('/anotacion/admin'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Profesor',array('/profesor/admin'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Clase',array('/clase/admin'),array('class'=>'btn_registro')); ?></li>
+                  <li><?php echo CHtml::link('Evaluación',array('/evaluacion/admin'),array('class'=>'btn_registro')); ?></li>
                   <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Especiales</li>
                   <li><?php //echo CHtml::link('Asistencia',array('/asistencia'),array('class'=>'btn_registro')); ?></li>
                   <li><?php //echo CHtml::link('Notas',array('/notas'),array('class'=>'btn_registro')); ?></li>
                 </ul>
+				  <li><?php echo CHtml::link('Resumen',array('/reporte/reportesAdmin'),array('class'=>'btn_registro')); ?></li>
+
               </li>
               <?php 
 		          } 
