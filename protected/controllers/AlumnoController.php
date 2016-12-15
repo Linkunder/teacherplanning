@@ -37,9 +37,13 @@ class AlumnoController extends Controller
 				'users'=>array('@'),
 				),*/
 			array('allow', // allow profesors user to perform 'admin' and 'delete' actions
-				'actions'=>array('create','update','admin','delete'),
+				'actions'=>array('create','update','delete'),
 				'users'=>array('profesor'),
 				),
+            array('allow', // allow profesors user to perform 'admin' and 'delete' actions
+                'actions'=>array('admin','delete'),
+                'users'=>array('super'),
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 				),
