@@ -63,11 +63,11 @@ class Profesor extends CActiveRecord
 	{
 		return array(
 			'idProfesor' => 'Id Profesor',
-			'nombre' => 'Nombre',
-			'apellido' => 'Apellido',
+			'nombre' => 'Nombres',
+			'apellido' => 'Apellidos',
 			'rut' => 'Rut',
-			'mail' => 'Mail',
-			'password' => 'Password',
+			'mail' => 'Correo',
+			'password' => 'Contraseña',
 			'perfil' => 'Perfil',
 			'itsfree' => 'Itsfree',
 		);

@@ -69,17 +69,19 @@
 		<?php echo $form->error($model,'descripcion'); ?>
 	</div>
 
+	<!--
 	<div class="row">
-		<?php echo $form->labelEx($model,'idCurso'); ?>
-		<?php 
+		?php echo $form->labelEx($model,'idCurso'); ?>
+		?php
 		//echo $form->textField($model,'idCurso'); 
 		$lista = CHtml::listData($todosLosCursos, 'idCurso','nombre','institucion');
 		echo $form->dropDownList($model,'idCurso',$lista,array('prompt'=>'Seleccione un curso'));
 
 		?>
-		<?php echo $form->error($model,'idCurso'); ?>
+		?php echo $form->error($model,'idCurso'); ?>
 	</div>
-
+	-->
+	<input hidden type="number" name="Clase[idCurso]" value="<?= $idCurso ?>">
 
 	<div class="row">
 		<div class="col-md-12">
@@ -87,7 +89,7 @@
 				<select id="listaAlumnos" name="listaAsistencia[]" multiple="multiple" size="<?= count($listaAlumnos)?>">
 
 					<?php
-					foreach($listaAlumnos[0] as $alumno){
+					foreach($listaAlumnos as $alumno){
 						?>
 						<option id="no-en-lista" value="<?= $alumno->idAlumno ?>">
 							<?php echo $alumno->nombre." ".$alumno->apellido ?>

@@ -76,27 +76,31 @@ wrapper {
 
 	<p class="note"><span class="required">*</span>son requeridos.</p>
 
-	<div class="row form-control">
-		<?php echo $form->labelEx($model,'correo'); ?>
+	<div >
+		<?php echo $form->labelEx($model,'correo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'); ?>
 		<?php echo $form->textField($model,'username'); ?>
 		<?php echo $form->error($model,'username'); ?>
 	</div>
 
-	<div class="row form-control"  >
+	<div >
 		<?php echo $form->labelEx($model,'contraseña'); ?>
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 
-	<div class="row rememberMe ">
+	<div class="rememberMe ">
 		<?php echo $form->checkBox($model,'rememberMe'); ?>
 		<?php echo $form->label($model,'recuerdame'); ?>
 		<?php echo $form->error($model,'rememberMe'); ?>
 	</div>
 
-	<div class="row btn btn-lg btn-primary btn-block">
-		<?php echo CHtml::submitButton('Login'); ?>
+	<!--
+	<div class="btn btn-md btn-primary">
+		?php echo CHtml::submitButton('Login'); ?>
 	</div>
+	-->
+	<button type="submit" class="btn btn-md btn-primary" href="#">Ingresar</button>
+	<button type="button" class="btn btn-md btn-success cp" href="#" data-toggle="modal" data-target="#modalAgregar">Registrarse</button>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
