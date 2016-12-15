@@ -5,8 +5,8 @@
 $this->breadcrumbs=array(
 	'Reportes'=>array('index'),
   );?>
-
-  <div class="btn-group btn-group-justified">
+<h2>Reporte general</h2>
+<div class="btn-group btn-group-justified">
     <a href="#" class="btn btn-primary col-sm-3">
       <strong><h2><i class="glyphicon glyphicon-book"></i>&nbsp;<?php echo $cursos[0]['cantidad']; ?></h2></strong>
       Cursos
@@ -23,25 +23,23 @@ $this->breadcrumbs=array(
     <strong><h2><i class="glyphicon glyphicon-pencil"></i>&nbsp;<?php echo $evaluaciones[0]['cantidad']; ?></h2></strong>
     Evaluaciones
   </a>
-
 </div>
 </br></br>
 
 <div class="container-fluid">
-  <h2>Gráficos</h2>
+  <h2></h2>
   <div class="row">
     <div class="col-md-12">
       <div class="panel-group" id="panel-72128">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <a class="panel-title" data-toggle="collapse" data-parent="#panel-72128" href="#panel-element-489495">Cursos</a>
+            <a class="panel-title" data-toggle="collapse" data-parent="#panel-72128" href="#panel-element-489495">De pago v/s Gratis</a>
+            <?php $this->renderPartial('_graficoAdmin',array('itsFree' =>$itsFree,)); ?>
           </div>
           <div id="panel-element-489495" class="panel-collapse collapse">
             <div class="panel-body">
             <div class="block center">
             
-
-            <?php $this->renderPartial('_graficosCursos',array('graficoAlumnosCurso'=>$graficoAlumnosCurso,'graficoCursoInstitucion' => $graficoCursoInstitucion, 'cursoEvaluacion' => $cursoEvaluacion, ));?>
             </div>
             </div>
           </div>
