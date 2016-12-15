@@ -198,7 +198,7 @@
 				for ($i = 0; $i < count($cursoEvaluacion); $i++) {
 					?>
 
-		 			[<?php echo $cursoEvaluacion[$i]['partidos'] ?>],
+		 			[<?php echo $cursoEvaluacion[$i]['cantidad'] ?>],
 		 			<?php
 		 		}
 		 		?>
