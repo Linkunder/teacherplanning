@@ -26,6 +26,10 @@ class ReporteController extends Controller
 				'actions'=>array('reportes'),
 				'users'=>array('profesor'),
 				),
+			array('allow',
+				'actions' =>array('reportesAdmin'),
+				'users' =>array('super'),
+				),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 				),
@@ -33,15 +37,7 @@ class ReporteController extends Controller
 	}
 	public function actionReportes()
 	{
-		/*
-		$model=new Profesor('search');
-		$model->unsetAttributes();  
-		if(isset($_GET['Profesor']))
-			$model->attributes=$_GET['Profesor'];
-
-		//Se filtra para que el administrador solo pueda ver profesores y no asi mismo
-		$model->perfil = 0;
-		*/
+		//Aqui se hacen las consultas para los pequeños reportes
 		$idProfesor = Yii::app()->user->getState('usuario')->idProfesor;
 		//Datos para el resumen general
 		$cursos = Yii::app()->db->createCommand("SELECT count(*) as cantidad FROM Curso WHERE idProfesor = '$idProfesor'")->queryAll();
@@ -63,6 +59,20 @@ class ReporteController extends Controller
 		$this->render('reportes', array('cursos'=>$cursos, 'alumnos' =>$alumnos, 'anotaciones'=>$anotaciones, 'evaluaciones'=>$evaluaciones, 'graficoAlumnosCurso'=>$graficoAlumnosCurso,'graficoCursoInstitucion' => $graficoCursoInstitucion, 'cursoEvaluacion' => $cursoEvaluacion,));
 	}
 
+
+	public function actionReportesAdmin(){
+				//Aqui se hacen las consultas para los pequeños reportes
+		$idProfesor = Yii::app()->user->getState('usuario')->idProfesor;
+		//Datos para el resumen general
+		$cursos = Yii::app()->db->createCommand("SELECT count(*) as cantidad FROM Curso")->queryAll();
+		$alumnos = Yii::app()->db->createCommand("SELECT sum(cantidad) as cantidad FROM (SELECT Alumno.idCurso, count(*) AS cantidad FROM Alumno INNER JOIN Curso ON Curso.idCurso = Alumno.idCurso GROUP BY idCurso) AS t1")->queryAll();
+		$anotaciones	= Yii::app()->db->createCommand("SELECT IFNULL(SUM(cantidad), 0) AS cantidad FROM (SELECT Anotacion.idAlumno, count(*) AS cantidad FROM Anotacion INNER JOIN Alumno ON Anotacion.idAlumno = Alumno.idAlumno INNER JOIN Curso ON Curso.idCurso = Alumno.idCurso GROUP BY idAlumno) AS t1")->queryAll();
+		
+		$evaluaciones	= Yii::app()->db->createCommand("SELECT IFNULL(SUM(cantidad), 0) AS cantidad FROM (SELECT Evaluacion.idCurso, count(*) AS cantidad FROM Evaluacion INNER JOIN Curso ON Curso.idCurso = Evaluacion.idCurso GROUP BY idCurso) AS t1")->queryAll();
+		$itsFree = Yii::app()->db->createCommand("SELECT Profesor.itsfree, count(*) AS Cantidad FROM Profesor GROUP BY Profesor.itsfree")->queryAll();
+		$this->render('reportesAdmin', array('cursos'=>$cursos, 'alumnos' =>$alumnos, 'anotaciones'=>$anotaciones, 'evaluaciones'=>$evaluaciones, 'itsFree' =>$itsFree,));
+
+	}
 
 
 
