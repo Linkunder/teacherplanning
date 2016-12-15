@@ -62,14 +62,11 @@ class ClaseController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
-	{
-		$model=new Clase;
+	public function actionCreate() {
+		$model = new Clase;
         $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
 
         /**** DUAL-LIST-BOX */
-        $modelAlumno = new Alumno();
-
         $listaAlumnos = [];
         $listaAsistencia = []; // inicialmente vacia porque creamos un curso y no se ha pasado lista
 
@@ -78,28 +75,28 @@ class ClaseController extends Controller
         }
         /**** FIN DUAL-LIST-BOX */
 
-        /*
-        if (isset($_POST["arrayContactos"])){
-			$miembros = $_POST["arrayContactos"];
-			for ($i=0; $i<count($miembros) ; $i++) {
-				$idMiembro = $miembros[$i];
-				$this->Equipo->agregarMiembroEquipo($idMiembro,$idEquipo);
-				}
-			}
-		}
-        */
-
-		if(isset($_POST['Clase']))
-		{
+		if(isset($_POST['Clase'])) {
 			$model->attributes=$_POST['Clase'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->idClase));
+
+			if($model->save()){
+                if (isset($_POST["listaAsistencia"])){
+                    $alumnos = $_POST["listaAsistencia"];
+                    for ($i=0; $i<count($alumnos) ; $i++) {
+                        $asistencia = new Asistencia();
+                        $idAlumno = $alumnos[$i];
+                        $asistencia->idClase = $model->idClase;
+                        $asistencia->idAlumno = $idAlumno;
+                        $asistencia->save();
+                    }
+                }
+
+                $this->redirect(array('view','id'=>$model->idClase));
+            }
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
 			'todosLosCursos'=>$todosLosCursos,
-            'modelAlumno' => $modelAlumno,
             'listaAlumnos' => $listaAlumnos,
             'listaAsistencia' => $listaAsistencia,
 		));
@@ -111,13 +108,11 @@ class ClaseController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
-	{
+	public function actionUpdate($id){
 		$model=$this->loadModel($id);
         $todosLosCursos = Curso::model()->findAllByAttributes(['idProfesor' => Yii::app()->user->getState('usuario')->idProfesor]);
 
-		if(isset($_POST['Clase']))
-		{
+		if(isset($_POST['Clase'])) {
 			$model->attributes=$_POST['Clase'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->idClase));

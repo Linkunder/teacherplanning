@@ -23,7 +23,6 @@ $this->menu=array(
 $this->renderPartial('_form', array(
 	'model'=>$model,
 	'todosLosCursos'=>$todosLosCursos,
-	'modelAlumno' => $modelAlumno,
 	'listaAlumnos' => $listaAlumnos,
     'listaAsistencia' => $listaAsistencia,
 ));

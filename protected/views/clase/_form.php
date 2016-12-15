@@ -84,7 +84,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="form-group">
-				<select id="listaAlumnos" name="listaAlumnos[]" multiple="multiple" size="<?= count($listaAlumnos)?>" class="demo2">
+				<select id="listaAlumnos" name="listaAsistencia[]" multiple="multiple" size="<?= count($listaAlumnos)?>">
 
 					<?php
 					foreach($listaAlumnos[0] as $alumno){
@@ -109,7 +109,12 @@
 		</div>
 	</div>
 	<script>
-		var demo1 = $('select[name="listaAlumnos[]"]').bootstrapDualListbox(); // se inicializa en base al name
+		var demo1 = $('select[name="listaAsistencia[]"]').bootstrapDualListbox({
+			nonSelectedListLabel: 'No seleccionados',
+			selectedListLabel: 'Seleccionados',
+			preserveSelectionOnMove: 'moved',
+			moveOnSelect: true,
+		}); // se inicializa en base al name
 	</script>
 
 
@@ -133,4 +138,3 @@ echo print_r($listaAlumnos);
 echo '</pre>';
 */
 ?>
-
