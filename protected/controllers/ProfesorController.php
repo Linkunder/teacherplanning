@@ -45,4 +45,20 @@ class ProfesorController extends Controller
     }
     */
 
+    public function actionCreate(){
+    	$model = new Profesor;
+
+    	if(isset($_POST['Profesor'])) {
+    		$model->attributes=$_POST['Profesor'];
+    		$model->save();
+
+    		if($model->save()){
+					header('Location:/teacherplanning');
+				}else{
+					header('Location:/teacherplanning');
+				}
+
+    	}
+
+    }
 }

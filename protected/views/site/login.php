@@ -100,8 +100,30 @@ wrapper {
 	</div>
 	-->
 	<button type="submit" class="btn btn-md btn-primary" href="#">Ingresar</button>
-	<button type="button" class="btn btn-md btn-success cp" href="#" data-toggle="modal" data-target="#modalAgregar">Registrarse</button>
+	<button type="button" class="btn btn-md btn-success cp" href="#" data-toggle="modal" data-target="#modalRegistrar">Registrarse</button>
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
 </div>
+
+
+
+  <div id="modalRegistrar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Regístrate en TeacherPlanning</h4>
+        </div>
+        <div class="modal-body">
+          <?php
+          $this->renderPartial('_formRegistrar');
+          
+          ?>
+        </div>
+      </div>
+
+    </div>
+  </div>
